@@ -1,0 +1,143 @@
+{
+  "junior": [
+    {
+      "question": "What is the difference between a test case and a checklist? When would you use each?",
+      "hints": ["Test case: detailed steps, preconditions, expected result; checklist: quick yes/no verification", "Use checklists for exploratory/regression smoke; use test cases for critical flows"],
+      "answer": "A test case is a formal document with preconditions, numbered steps, input data, and an exact expected result — used for critical, reproducible flows that must be verifiable by anyone. A checklist is a quick list of pass/fail items with no step-by-step detail — used for exploratory testing, smoke checks, or audits where speed matters more than precision."
+    },
+    {
+      "question": "What is the difference between smoke testing and regression testing?",
+      "hints": ["Smoke: quick sanity check to verify the build is stable enough for further testing", "Regression: ensure existing functionality was not broken by new changes"],
+      "answer": "Smoke testing is a shallow, fast check of the most critical paths to verify a build is stable enough for deeper testing — if smoke fails, the build is rejected immediately. Regression testing is a broader, systematic re-execution of existing test cases after code changes to ensure previously working functionality has not broken. Smoke is a subset of regression run first as a gate."
+    },
+    {
+      "question": "What makes a good bug report? Walk me through the key sections.",
+      "hints": ["Title, steps to reproduce, expected vs actual result, environment, severity/priority", "Attach logs, screenshots, or recordings when possible"],
+      "answer": "A good bug report includes: a descriptive title summarising the defect; exact steps to reproduce numbered clearly; expected result vs actual result; environment (OS, browser, version, device); severity and priority; and supporting evidence (screenshots, logs, video). The goal is that any developer can reproduce and understand the bug without asking follow-up questions."
+    },
+    {
+      "question": "Explain boundary value analysis and equivalence partitioning with examples.",
+      "hints": ["Equivalence partitioning: divide inputs into groups expected to behave the same", "Boundary value analysis: test values at the edges of each partition (min, min+1, max-1, max)"],
+      "answer": "Equivalence partitioning divides the input space into classes where all values in a class should be handled identically — you test one representative value per class. For age field 18–65: classes are <18, 18–65, >65. Boundary value analysis tests the edges of each partition since bugs cluster there: 17, 18, 19 and 64, 65, 66. Together they give strong coverage with a manageable number of test cases."
+    },
+    {
+      "question": "What is a test plan and what key sections does it contain?",
+      "hints": ["Scope, objectives, test items, approach, resources, schedule, risks", "It is the master document that guides the entire testing effort for a release"],
+      "answer": "A test plan is the master document governing a testing effort. Key sections: scope (what is and is not tested), objectives, test items and features, approach and techniques, entry/exit criteria, resource and schedule plan, test environment, risk register and contingency, and deliverables. It aligns the team and stakeholders on how testing will be conducted."
+    },
+    {
+      "question": "Describe the defect lifecycle from discovery to closure.",
+      "hints": ["New → Assigned → Open → Fixed → Retested → Closed (or Reopened)", "Different teams may add statuses like Deferred, Rejected, Duplicate"],
+      "answer": "New: tester logs the defect. Assigned: project manager assigns it to a developer. Open: developer acknowledges and works on it. Fixed: developer marks it resolved. Retested: tester verifies the fix. Closed: defect confirmed resolved. If the fix is inadequate the defect is Reopened. Additional statuses include Deferred (postponed to a future release), Rejected (not a defect), and Duplicate."
+    },
+    {
+      "question": "What is the difference between functional and non-functional testing? Give examples of each.",
+      "hints": ["Functional: does the feature work as specified? (login, checkout, search)", "Non-functional: how well does it work? (performance, security, usability, compatibility)"],
+      "answer": "Functional testing verifies that features behave according to requirements — 'does the login form authenticate correctly?'. Non-functional testing evaluates quality characteristics — performance (can it handle 1000 concurrent users?), security (is the API protected against SQL injection?), usability (is the UI intuitive?), and compatibility (does it work across browsers and devices?)."
+    },
+    {
+      "question": "What is exploratory testing and when is it most valuable?",
+      "hints": ["Simultaneous learning, design, and execution without predefined scripts", "Valuable for new features, unstable areas, or when requirements are incomplete"],
+      "answer": "Exploratory testing is simultaneous learning, test design, and execution guided by the tester's judgment rather than pre-written scripts. It is most valuable early in development when requirements are incomplete, for newly delivered features to discover unexpected behaviour, in areas with high defect density, and as a complement to scripted regression to find issues that scripts miss."
+    },
+    {
+      "question": "What is the difference between black-box, white-box, and grey-box testing?",
+      "hints": ["Black-box: no knowledge of internals; White-box: full code visibility; Grey-box: partial knowledge", "Black-box for functional testing; white-box for unit/code coverage; grey-box for integration testing"],
+      "answer": "Black-box testing treats the system as an opaque box — testers know only inputs and expected outputs, not internal code. White-box testing uses full knowledge of the code to design tests targeting specific paths, branches, and conditions — used in unit testing and code coverage analysis. Grey-box sits between: partial knowledge of internals (API contracts, DB schema) used to design more effective integration or API tests."
+    }
+  ],
+  "middle": [
+    {
+      "question": "Explain the testing pyramid. Why is it shaped that way?",
+      "hints": ["Many unit tests (fast, cheap) → fewer integration tests → even fewer end-to-end tests (slow, expensive)", "Inverting the pyramid ('ice cream cone') leads to slow, brittle test suites"],
+      "answer": "The pyramid has many unit tests at the base (fast, isolated, cheap to write and maintain), fewer integration tests in the middle (verify service interactions), and few E2E tests at the top (slow, expensive, brittle, but reflect real user journeys). The shape reflects cost-effectiveness: bugs found at the unit level are cheapest to fix. Inverting it ('ice cream cone' of mostly E2E) produces slow, flaky, expensive suites."
+    },
+    {
+      "question": "How would you approach API testing? What tools and techniques would you use?",
+      "hints": ["Test status codes, response body, headers, error handling, authentication, and performance", "Tools: Postman, REST Assured, Newman, k6; techniques: contract testing, negative testing"],
+      "answer": "API testing covers: positive paths (correct inputs → correct status codes and response bodies), negative paths (invalid inputs → appropriate error codes and messages), authentication/authorisation enforcement, header validation, response time, and edge cases. Tools: Postman for exploration, Newman for CI automation, REST Assured for Java, and k6 for performance. Contract testing (Pact) ensures consumer-provider API compatibility without full integration environments."
+    },
+    {
+      "question": "What is the difference between load testing, stress testing, and spike testing?",
+      "hints": ["Load: expected user volume; Stress: find breaking point by exceeding capacity; Spike: sudden traffic surge", "Tools: k6, JMeter, Gatling; key metrics: response time, error rate, throughput"],
+      "answer": "Load testing applies expected production traffic to verify the system meets performance SLAs under normal conditions. Stress testing gradually exceeds expected load to find the breaking point and observe failure behaviour. Spike testing simulates a sudden, massive traffic surge (e.g. a flash sale) to verify the system can absorb and recover from sharp demand increases. Key metrics across all three: response time percentiles, error rate, and throughput (RPS)."
+    },
+    {
+      "question": "What is Test-Driven Development (TDD)? Walk me through the Red-Green-Refactor cycle.",
+      "hints": ["Red: write a failing test for the desired behavior", "Green: write the minimum code to make it pass; Refactor: clean up without breaking tests"],
+      "answer": "TDD is a development practice where tests are written before production code. Red: write a test for the desired behaviour — it fails because the code does not exist yet. Green: write the minimum code necessary to make the test pass — no more. Refactor: clean up the code (remove duplication, improve naming) without breaking the tests. This cycle drives a design that is inherently testable and produces a comprehensive safety net."
+    },
+    {
+      "question": "How do you integrate automated tests into a CI/CD pipeline? What are the key considerations?",
+      "hints": ["Run fast tests (unit) on every commit; run slower tests (integration, E2E) on PRs or nightly", "Fail fast, parallelize execution, treat test failures as build failures"],
+      "answer": "Run unit tests on every commit (fast, seconds). Run integration tests on every PR (minutes). Run E2E and performance tests on merge to main or nightly (longer). Key principles: fail fast — block the pipeline on any test failure; parallelise suites to minimise total duration; treat flaky tests as bugs; enforce test coverage thresholds as part of the gate; and publish test reports and trends in the CI dashboard."
+    },
+    {
+      "question": "What is risk-based testing and how do you prioritize what to test?",
+      "hints": ["Focus testing effort on areas with highest probability and impact of failure", "Factors: change frequency, business criticality, complexity, historical defect density"],
+      "answer": "Risk-based testing allocates testing effort proportionally to risk, calculated as probability of failure × business impact. Factors that increase risk: recent code changes, high business criticality, technical complexity, historical defect density, and external integrations. High-risk areas get deeper testing first; low-risk stable areas may get only smoke checks. This maximises defect detection within time and resource constraints."
+    },
+    {
+      "question": "What is BDD (Behavior-Driven Development) and how does it differ from TDD?",
+      "hints": ["BDD uses natural language (Given/When/Then) to describe behavior, involving non-technical stakeholders", "Tools: Cucumber, SpecFlow, Behave; scenarios serve as living documentation"],
+      "answer": "BDD extends TDD by expressing test scenarios in natural language (Given/When/Then) that non-technical stakeholders can read and validate. Tests become executable specifications and living documentation. TDD is developer-centric (unit tests written in code); BDD bridges business and development — product owners co-author scenarios, reducing the gap between requirements and implementation. Tools: Cucumber (Java/JS), SpecFlow (.NET), Behave (Python)."
+    },
+    {
+      "question": "How do you decide what to automate and what to test manually?",
+      "hints": ["Automate: repetitive regression, data-driven, cross-browser, API; Manual: exploratory, UI usability, one-off", "Consider ROI: automation cost vs. frequency of execution and maintenance burden"],
+      "answer": "Automate: repetitive regression tests executed every build, data-driven tests with many combinations, API contract tests, and cross-browser compatibility checks — high frequency justifies the investment. Test manually: exploratory testing (human creativity finds unexpected issues), UX/usability evaluation, ad-hoc tests for one-time scenarios, and tests for features that change frequently (automation becomes a maintenance burden)."
+    },
+    {
+      "question": "What is contract testing and how does it help in microservices architectures?",
+      "hints": ["Verifies that service interactions conform to a shared contract without deploying all services together", "Tools: Pact; consumer-driven contracts prevent breaking API changes"],
+      "answer": "Contract testing verifies that a consumer and provider agree on an API contract without needing both deployed simultaneously. In consumer-driven contracts (Pact), the consumer defines the expected API interactions; the provider verifies it can satisfy them independently. This catches breaking API changes early in CI, enables parallel team development, and eliminates the need for a shared integrated environment for every test run."
+    }
+  ],
+  "senior": [
+    {
+      "question": "How do you create a test strategy for a large enterprise project? What does it include?",
+      "hints": ["Risk analysis, test levels and types, tools, environments, entry/exit criteria, metrics, team structure", "Align with business goals; adapt as the project evolves (living document)"],
+      "answer": "A test strategy covers: risk assessment (what can go wrong and at what cost), test scope and levels (unit, integration, system, UAT), types (functional, performance, security, accessibility), tooling choices, environment matrix, entry and exit criteria for each phase, defect management process, KPIs and reporting cadence, and team structure and responsibilities. It should be a living document reviewed with each major release and aligned with business risk tolerance."
+    },
+    {
+      "question": "What is chaos engineering? How would you implement it and what systems benefit most?",
+      "hints": ["Deliberately inject failures (network latency, node kill, disk full) to verify system resilience", "Start with Gamedays in staging; use tools like Chaos Monkey, Gremlin, Litmus"],
+      "answer": "Chaos engineering deliberately injects controlled failures — latency spikes, node terminations, disk saturation — into production-like environments to verify that systems remain resilient and observable. Start with Gamedays in staging where the team manually triggers failures and observes. Automate with tools like Chaos Monkey, Gremlin, or LitmusChaos. Systems with redundancy, auto-scaling, and circuit breakers benefit most; systems without these risk outages during experiments."
+    },
+    {
+      "question": "How would you architect a performance testing solution for a distributed microservices system?",
+      "hints": ["Isolate services with stubs, test each service independently, then test end-to-end flows", "Distributed load generators (k6 cloud, Gatling Enterprise), observe with APM tools (Datadog, Grafana)"],
+      "answer": "Layer the approach: component performance tests per service with stubs replacing downstream dependencies; contract-load tests verifying each service at its SLA; then end-to-end flow tests of critical user journeys. Use distributed load generators (k6 Cloud, Gatling Enterprise) to avoid the generator becoming the bottleneck. Correlate metrics across services with APM tools (Datadog, Grafana + Tempo) to pinpoint latency contributors. Embed performance gates in CI to catch regressions early."
+    },
+    {
+      "question": "What is security testing? Describe the main techniques and tools you have used.",
+      "hints": ["SAST (static code analysis), DAST (dynamic scanning), penetration testing, dependency scanning", "Tools: OWASP ZAP, Burp Suite, Snyk, SonarQube; integrate into CI for shift-left security"],
+      "answer": "Security testing finds vulnerabilities before attackers do. SAST (SonarQube, Semgrep) analyses source code for insecure patterns. DAST (OWASP ZAP, Burp Suite) probes a running application for SQL injection, XSS, auth flaws. Dependency scanning (Snyk, Dependabot) flags vulnerable third-party libraries. Penetration testing simulates real attacks. Integrate SAST and dependency scanning into CI for shift-left security; run DAST against staging."
+    },
+    {
+      "question": "What are the unique challenges of testing microservices and how do you address them?",
+      "hints": ["Distributed failures, async communication, environment complexity, data isolation between services", "Consumer-driven contracts, service virtualization, chaos testing, observability (traces, logs, metrics)"],
+      "answer": "Challenges: testing in isolation requires stubs/mocks for many dependencies; async messaging makes assertion timing complex; shared environments are unstable and slow; and distributed failures are hard to reproduce. Addresses: consumer-driven contract tests decouple teams; service virtualisation (WireMock, Hoverfly) stubs dependencies; component tests run each service in isolation; chaos engineering validates resilience; and distributed tracing enables root-cause analysis in integration tests."
+    },
+    {
+      "question": "How do you measure and meaningfully improve test coverage in a large codebase?",
+      "hints": ["Line/branch coverage metrics are necessary but not sufficient — focus on risk-based coverage", "Mutation testing (Infection, PIT) reveals whether tests actually catch bugs"],
+      "answer": "Line and branch coverage metrics show which code is exercised but not whether tests are actually asserting meaningful outcomes. Complement them with mutation testing (Infection for PHP, PIT for Java): the tool introduces deliberate code mutations and checks whether tests catch them — a high mutation kill rate indicates effective tests. Focus coverage improvement efforts on high-risk areas (recent changes, complex logic, critical business paths) rather than chasing 100% across the board."
+    },
+    {
+      "question": "How do you diagnose and fix flaky tests in a large automated test suite?",
+      "hints": ["Causes: timing issues, shared state, external dependencies, test order dependency", "Quarantine flaky tests, analyze patterns, fix root causes; track flakiness rate as a metric"],
+      "answer": "Flaky tests fail intermittently without code changes. Common causes: async timing assumptions (fixed waits instead of condition waits), shared mutable state between tests, test order dependencies, and non-deterministic external services. Process: quarantine flaky tests immediately (tag and skip) to prevent false signals; analyse failure patterns using CI history; fix root causes (explicit waits, test isolation, service virtualisation). Track flakiness rate as a first-class metric alongside pass rate."
+    },
+    {
+      "question": "What is accessibility (a11y) testing and how do you implement it in a development workflow?",
+      "hints": ["Verify the product is usable by people with disabilities (WCAG 2.1 guidelines)", "Automated: Axe, Lighthouse; Manual: screen readers (NVDA, VoiceOver), keyboard navigation"],
+      "answer": "Accessibility testing verifies that the product is usable by people with visual, motor, auditory, or cognitive disabilities, conforming to WCAG 2.1 (Level AA is the standard target). Shift-left: integrate automated a11y checks (axe-core, Lighthouse) into the CI pipeline and browser test suite — they catch ~30% of issues automatically. Complement with manual testing: keyboard-only navigation, screen reader testing (NVDA on Windows, VoiceOver on macOS/iOS), and colour contrast validation."
+    },
+    {
+      "question": "How would you build and lead a QA practice from scratch in a startup that currently has no testing?",
+      "hints": ["Prioritize quick wins: CI pipeline, smoke tests for critical paths, bug triage process", "Build a culture of quality (shift-left), define metrics, hire strategically, automate incrementally"],
+      "answer": "Start with quick wins that deliver immediate value: add a CI pipeline if none exists, write smoke tests for the two or three most critical user paths, and establish a bug triage and severity classification process. In parallel, build a quality culture — involve QA in requirements review, not just sign-off. Define baseline metrics (defect escape rate, coverage, build stability). Hire one strong automation engineer. Automate regression incrementally, prioritising highest-risk areas. Measure and communicate QA impact to leadership."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Environment — never bake secrets into an image
+.env
+.env.*
+!.env.example
+
+# Dev dependencies
+node_modules
+vendor
+
+# Build artifacts
+/public/hot
+/public/build
+
+# Runtime data — mounted as volumes in production
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+database/database.sqlite
+
+# Never bake locally-generated caches into the image
+bootstrap/cache/*.php
+
+# Tests
+tests
+phpunit.xml
+.phpunit.result.cache
+
+# IDE & OS
+.idea
+.vscode
+*.DS_Store
+*.swp
+
+# Docker compose files (not needed in image)
+docker-compose*.yml
+
+# Documentation
+*.md
+LICENCE

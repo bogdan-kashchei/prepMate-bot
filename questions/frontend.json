@@ -1,0 +1,143 @@
+{
+  "junior": [
+    {
+      "question": "Explain the CSS box model. What is the difference between 'content-box' and 'border-box'?",
+      "hints": ["Content, padding, border, margin are the four areas", "border-box includes padding and border inside the declared width"],
+      "answer": "The box model defines four areas around every element: content, padding, border, and margin. In content-box (default), width/height apply only to the content area — padding and border add on top. In border-box, width/height include padding and border, making layout arithmetic far simpler and predictable."
+    },
+    {
+      "question": "What is the difference between Flexbox and CSS Grid? When would you choose one over the other?",
+      "hints": ["Flexbox is one-dimensional (row or column), Grid is two-dimensional", "Use Flexbox for component alignment, Grid for overall page layout"],
+      "answer": "Flexbox arranges items along a single axis (row or column) and lets them grow, shrink, and align — perfect for nav bars, button groups, or centering. Grid controls both rows and columns simultaneously, enabling complex two-dimensional layouts. Use Flexbox for component-level alignment and Grid for overall page layout where items must align across both axes."
+    },
+    {
+      "question": "Explain closures in JavaScript. Give a practical example of when you would use one.",
+      "hints": ["A closure is a function that retains access to its outer scope after the outer function has returned", "Common use cases: data privacy, factory functions, event handlers"],
+      "answer": "A closure is a function that remembers the variables of its enclosing scope even after that outer function has returned. A classic example is a counter factory: a function creates a private count variable and returns increment/decrement functions — only those inner functions can access count, providing data privacy without classes."
+    },
+    {
+      "question": "What is the difference between 'let', 'const', and 'var' in JavaScript?",
+      "hints": ["var is function-scoped and hoisted; let and const are block-scoped", "const prevents reassignment but does not make objects immutable"],
+      "answer": "var is function-scoped, hoisted to undefined, and can be re-declared. let is block-scoped, in the temporal dead zone until its declaration, and cannot be re-declared in the same scope. const is block-scoped, requires an initialiser, and forbids reassignment of the binding — but the referenced object can still be mutated."
+    },
+    {
+      "question": "What is event delegation and why is it useful?",
+      "hints": ["Attach a single listener to a parent element instead of many children", "Works because DOM events bubble up through ancestors"],
+      "answer": "Event delegation places one listener on a parent element and uses event.target to identify which child was interacted with, exploiting the fact that DOM events bubble upward. Benefits: fewer listeners in memory, and dynamically added children are automatically covered without re-attaching listeners."
+    },
+    {
+      "question": "What is the Document Object Model (DOM) and how does JavaScript interact with it?",
+      "hints": ["DOM is a tree-structured representation of the HTML document", "JavaScript uses APIs like getElementById, querySelector, addEventListener"],
+      "answer": "The DOM is a live, tree-structured object model of an HTML document built by the browser during parsing. Every HTML tag becomes a node. JavaScript interacts via APIs such as querySelector, textContent, setAttribute, and addEventListener. DOM mutations are immediately reflected in the rendered page."
+    },
+    {
+      "question": "What is the difference between '==' and '===' in JavaScript?",
+      "hints": ["'==' performs type coercion before comparison", "'===' compares both value and type without coercion"],
+      "answer": "== coerces operands to the same type before comparing, producing surprises like 0 == false evaluating to true. === compares value and type without coercion, so 0 === false is false. Always use === to avoid implicit coercion bugs."
+    },
+    {
+      "question": "What are semantic HTML elements and why do they matter?",
+      "hints": ["Examples: <header>, <nav>, <main>, <article>, <footer>", "Benefits: accessibility, SEO, readability"],
+      "answer": "Semantic elements — header, nav, main, article, section, footer — convey the meaning of content, not just its appearance. They improve accessibility (screen readers build a navigable outline from them), SEO (search engines understand page structure), and code maintainability (self-documenting markup)."
+    },
+    {
+      "question": "What is the difference between 'null' and 'undefined' in JavaScript?",
+      "hints": ["undefined means a variable was declared but not assigned", "null is an intentional absence of value, explicitly set"],
+      "answer": "undefined is the automatic default for declared-but-uninitialised variables, missing function parameters, and absent object properties. null is an explicit developer assignment meaning 'intentionally no value here'. typeof undefined is 'undefined'; typeof null is 'object' — a historical JavaScript bug."
+    }
+  ],
+  "middle": [
+    {
+      "question": "How does the Virtual DOM work and what problem does it solve?",
+      "hints": ["Virtual DOM is an in-memory copy of the real DOM", "Diffing algorithm compares old vs new virtual trees, then batches minimal real DOM updates"],
+      "answer": "The Virtual DOM is a lightweight JS object tree mirroring the real DOM. On state change, a new virtual tree is produced and diffed against the previous one (reconciliation). Only the changed nodes are flushed to the real DOM as batched mutations. This avoids expensive full-page DOM rewrites, since JS object operations are orders of magnitude cheaper than direct DOM manipulation."
+    },
+    {
+      "question": "What are Web Workers and when would you use them?",
+      "hints": ["Web Workers run scripts in a background thread, off the main thread", "Good for CPU-intensive tasks like image processing, large data parsing"],
+      "answer": "Web Workers execute JS in a background thread separate from the main UI thread, preventing CPU-heavy work from blocking rendering. They communicate via postMessage/onmessage and have no DOM access. Use them for image processing, large dataset sorting, cryptography, or parsing large JSON — anything that would cause visible jank on the main thread."
+    },
+    {
+      "question": "What are common causes of memory leaks in JavaScript and how do you detect them?",
+      "hints": ["Forgotten timers/intervals, detached DOM nodes, closures holding large objects", "Chrome DevTools Memory panel, heap snapshots"],
+      "answer": "Common causes: forgotten setInterval callbacks holding closures, event listeners not removed on component unmount, closures retaining references to large objects, and detached DOM nodes still referenced in JS variables. Detect with Chrome DevTools Memory panel — compare heap snapshots before and after a suspected leak; growing retained objects indicate the leak source."
+    },
+    {
+      "question": "What is CORS, why does the browser enforce it, and how do you configure it on the server?",
+      "hints": ["Cross-Origin Resource Sharing — browsers block cross-origin requests by default (same-origin policy)", "Server sets Access-Control-Allow-Origin and other headers"],
+      "answer": "CORS enforces the same-origin policy: a script on a.com cannot fetch from b.com unless b.com opts in. For non-simple requests the browser sends a preflight OPTIONS; the server must respond with Access-Control-Allow-Origin (and optionally Allow-Methods, Allow-Headers) matching the origin. This is browser-only — server-to-server requests are never blocked."
+    },
+    {
+      "question": "What is the difference between HTTP/1.1 and HTTP/2? How does HTTP/2 improve performance?",
+      "hints": ["HTTP/2 adds multiplexing (multiple requests over one TCP connection), header compression, server push", "HTTP/1.1 suffers from head-of-line blocking"],
+      "answer": "HTTP/1.1 uses separate TCP connections per request, causing head-of-line blocking. HTTP/2 multiplexes multiple streams over a single connection concurrently, compresses headers with HPACK, adds binary framing, and supports server push. The result is significantly lower latency for pages with many assets."
+    },
+    {
+      "question": "Explain the JavaScript event loop. How do the call stack, task queue, and microtask queue interact?",
+      "hints": ["Microtasks (Promises) run before the next macrotask", "Macrotasks: setTimeout, setInterval, I/O callbacks"],
+      "answer": "The call stack executes synchronous code. When empty, the event loop drains the entire microtask queue (Promise .then, queueMicrotask) before picking the next macrotask (setTimeout, I/O) from the task queue. Promise callbacks always run before the next timer fires."
+    },
+    {
+      "question": "What is the difference between debouncing and throttling? Provide use cases for each.",
+      "hints": ["Debounce: delay execution until after a quiet period — good for search input", "Throttle: execute at most once per interval — good for scroll/resize handlers"],
+      "answer": "Debounce delays a function until a quiet period has passed since the last call — ideal for search autocomplete (fire API only after typing stops). Throttle limits execution to once per interval regardless of call frequency — ideal for scroll/resize handlers where you want smooth, rate-limited updates."
+    },
+    {
+      "question": "What are Service Workers? How do they enable Progressive Web Apps?",
+      "hints": ["Service Workers act as a network proxy running in the background", "They enable offline support, background sync, and push notifications"],
+      "answer": "A Service Worker is a background thread acting as a programmable network proxy: it intercepts fetch requests and can serve responses from the Cache API, enabling offline operation. Combined with Web Push and Background Sync, it powers the three PWA pillars: offline capability, push notifications, and background data sync."
+    },
+    {
+      "question": "Explain lazy loading in the context of web applications. What are its benefits and trade-offs?",
+      "hints": ["Defer loading of images or code until needed (viewport entry or user action)", "Benefits: faster initial load; trade-offs: complexity, potential layout shift"],
+      "answer": "Lazy loading defers images, video, or JS chunks until they enter the viewport (IntersectionObserver or loading='lazy') or a route is navigated to. Benefits: faster initial load, lower bandwidth. Trade-offs: slight delay on first use, potential layout shift if dimensions are not reserved, and complexity for route code-splitting."
+    }
+  ],
+  "senior": [
+    {
+      "question": "Describe the browser rendering pipeline from HTML bytes to pixels on screen.",
+      "hints": ["Parse HTML → DOM, parse CSS → CSSOM, merge → Render Tree, Layout, Paint, Composite", "JavaScript can block parsing; async/defer attributes mitigate this"],
+      "answer": "Bytes → tokenise → DOM. In parallel, CSS → CSSOM. DOM + CSSOM → Render Tree (visible nodes only). Layout calculates geometry. Paint records drawing commands. Compositing assembles layers on the GPU. JS is render-blocking by default; async/defer shift it post-parse. Forced synchronous layouts (read then write in a loop) interleave layout and script execution, causing jank."
+    },
+    {
+      "question": "What optimizations does the V8 engine apply to JavaScript? How does knowing them influence how you write code?",
+      "hints": ["JIT compilation, hidden classes, inline caching, garbage collection (generational)", "Avoid polymorphic functions, deoptimization triggers, excessive object shape changes"],
+      "answer": "V8 JIT-compiles hot paths to native code. Objects with the same property-initialisation order share a hidden class enabling fast access; adding properties post-construction changes the shape and deoptimises. Inline caching speeds repeated calls with identical argument types; polymorphic call sites are slower. Generational GC cheaply collects short-lived objects. Practical rule: initialise all properties in the constructor and write monomorphic functions."
+    },
+    {
+      "question": "What are micro-frontends? What problems do they solve and what challenges do they introduce?",
+      "hints": ["Decompose a frontend app into independently deployable pieces owned by separate teams", "Challenges: shared state, CSS isolation, performance (multiple frameworks), routing"],
+      "answer": "Micro-frontends split a large UI into independently deployable vertical slices, each owned by a separate team with its own tech stack and release cycle. Implementation options: Module Federation, iframes, web components, server-side composition. Challenges: CSS namespace collisions, duplicated framework bundles inflating total JS, shared state coordination, consistent UX, and cross-slice routing."
+    },
+    {
+      "question": "What is WebAssembly (WASM)? In what scenarios would you use it instead of JavaScript?",
+      "hints": ["WASM is a binary instruction format running at near-native speed in the browser", "Suitable for compute-heavy tasks: video codecs, 3D engines, cryptography"],
+      "answer": "WebAssembly is a binary format executing at near-native speed in the browser sandbox. It complements JS: JS orchestrates the app, WASM handles compute-heavy work — video/audio codecs, 3D rendering (Figma, Unity Web), cryptography, or porting C/C++/Rust libraries without rewriting them. It communicates with JS via shared linear memory and exported functions."
+    },
+    {
+      "question": "What is the Critical Rendering Path and how would you optimize it for a production application?",
+      "hints": ["Minimize render-blocking resources, inline critical CSS, defer non-critical JS", "Preload key resources, use font-display:swap, reduce main-thread work"],
+      "answer": "The CRP is the sequence from HTML bytes to first pixel: parse HTML, parse CSS, layout, paint. Optimisations: inline above-the-fold CSS; defer/async non-critical scripts; preload key fonts and hero images; use font-display:swap; reduce DOM depth. Measure with Lighthouse and Core Web Vitals (LCP, INP, CLS)."
+    },
+    {
+      "question": "How does tree shaking work in modern bundlers like Webpack or Rollup? What are its limitations?",
+      "hints": ["Static analysis of ES module import/export graph to eliminate dead code", "Limitations: side effects, CommonJS modules, dynamic imports"],
+      "answer": "Tree shaking statically analyses the ES module import/export graph to remove unused exports. Limitations: CommonJS (require()) is not statically analysable. Modules with side effects must be marked in package.json (sideEffects: false or a list) to prevent incorrect removal. Dynamic require(variable) calls are opaque to the analyser."
+    },
+    {
+      "question": "Explain Content Security Policy (CSP). How does it prevent XSS and what are its trade-offs?",
+      "hints": ["CSP is an HTTP header that whitelists allowed sources for scripts, styles, images, etc.", "Trade-offs: complexity, breaking inline scripts, maintenance overhead"],
+      "answer": "CSP is an HTTP header declaring approved sources for scripts, styles, and other resources. It prevents XSS by blocking inline script execution and untrusted origins — even injected HTML cannot run code. Trade-offs: inline scripts must move to external files or use nonces/hashes; third-party integrations require ongoing whitelist maintenance; unsafe-inline defeats the protection entirely."
+    },
+    {
+      "question": "Compare Server-Side Rendering (SSR), Static Site Generation (SSG), and Client-Side Rendering (CSR). When would you choose each?",
+      "hints": ["SSR: dynamic data per request, good for SEO, adds server cost", "SSG: pre-built HTML at build time, fastest delivery; CSR: rich interactivity, poor initial SEO"],
+      "answer": "CSR delivers a bare HTML shell and renders in the browser — great interactivity, poor SEO, slow first paint. SSR renders full HTML per request server-side — good SEO, fast first paint, adds server cost. SSG pre-builds HTML at deploy time and serves from CDN — fastest delivery, best SEO, requires rebuilds for content changes. Choose SSG for static content, SSR for user-specific data, CSR for heavily interactive apps behind auth."
+    },
+    {
+      "question": "How would you architect a large-scale React application for performance, maintainability, and team scalability?",
+      "hints": ["Feature-based folder structure, code splitting, state management strategy (Zustand, Redux Toolkit)", "Monorepo (Nx/Turborepo), design system, contract testing between micro-frontends"],
+      "answer": "Feature-based folder structure co-locating components, hooks, tests, and types. Route-level code splitting with React.lazy. State management by complexity: Zustand/Jotai for lightweight, Redux Toolkit for complex shared state. Multi-team scale: monorepo (Turborepo/Nx), shared design system package, enforced API contracts, performance budgets in CI (Lighthouse, bundle-size checks)."
+    }
+  ]
+}

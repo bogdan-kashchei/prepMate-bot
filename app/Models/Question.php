@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Question extends Model
+{
+    protected $fillable = [
+        'category',
+        'level',
+        'question_text',
+        'answer',
+        'hints',
+    ];
+
+    protected $casts = [
+        'hints' => 'array',
+    ];
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(UserAnswer::class, 'question_id');
+    }
+}

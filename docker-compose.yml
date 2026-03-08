@@ -1,0 +1,42 @@
+services:
+
+  # ── Application (PHP-FPM + Nginx via Supervisor) ────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: interview-bot
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8000}:80"
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_KEY: ${APP_KEY}
+      APP_URL: ${APP_URL:-http://localhost:8000}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /var/www/html/database/database.sqlite
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+      CLAUDE_API_KEY: ${CLAUDE_API_KEY}
+      LOG_CHANNEL: stderr
+      CACHE_STORE: file
+      SESSION_DRIVER: file
+      QUEUE_CONNECTION: sync
+    volumes:
+      # Persist the SQLite database and logs outside the container
+      - sqlite_data:/var/www/html/database
+      - app_logs:/var/www/html/storage/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/up"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  sqlite_data:
+    driver: local
+  app_logs:
+    driver: local

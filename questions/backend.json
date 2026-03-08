@@ -1,0 +1,143 @@
+{
+  "junior": [
+    {
+      "question": "What is the difference between REST and SOAP? When would you choose one over the other?",
+      "hints": ["REST uses HTTP verbs and is stateless; SOAP is a protocol with strict XML schemas", "REST is simpler and more common for web APIs; SOAP is used in enterprise/financial systems"],
+      "answer": "REST is an architectural style that uses standard HTTP verbs (GET, POST, PUT, DELETE), is stateless, and typically exchanges JSON. SOAP is a protocol with strict XML-based message envelopes, built-in error handling, and WS-* standards for security and transactions. Choose REST for modern web APIs due to simplicity; choose SOAP when you need strict contracts, built-in ACID transactions, or must integrate with legacy enterprise systems."
+    },
+    {
+      "question": "Explain the purpose of HTTP methods GET, POST, PUT, PATCH, and DELETE. When should you use each?",
+      "hints": ["GET retrieves; POST creates; PUT replaces the full resource; PATCH applies partial update; DELETE removes", "GET and DELETE are idempotent; PUT is idempotent; POST is not"],
+      "answer": "GET retrieves a resource (safe, idempotent, cacheable). POST creates a new resource or submits data (not idempotent). PUT replaces an entire resource with the provided representation (idempotent). PATCH applies a partial update to a resource. DELETE removes a resource (idempotent). Idempotent means repeating the request produces the same server state."
+    },
+    {
+      "question": "What is a database index and how does it improve query performance? What are the downsides?",
+      "hints": ["An index is a data structure (B-tree) that allows the database to find rows without a full table scan", "Downsides: slower writes, extra disk space"],
+      "answer": "An index is an auxiliary data structure (usually a B-tree) on one or more columns that the database uses to locate rows without scanning the entire table, dramatically speeding up SELECT queries on indexed columns. Downsides: every INSERT, UPDATE, or DELETE must also update the index, slowing writes; and indexes consume additional disk space."
+    },
+    {
+      "question": "What is a database transaction and what are the ACID properties?",
+      "hints": ["Atomicity, Consistency, Isolation, Durability", "Transactions ensure all operations succeed or all are rolled back"],
+      "answer": "A transaction is a unit of work that must complete entirely or not at all. ACID: Atomicity — all operations succeed or all are rolled back. Consistency — the database moves from one valid state to another. Isolation — concurrent transactions do not see each other's uncommitted changes. Durability — once committed, changes survive crashes (written to durable storage)."
+    },
+    {
+      "question": "Describe the MVC architectural pattern. What are the responsibilities of each layer?",
+      "hints": ["Model: data and business logic; View: presentation; Controller: handles user input and coordinates", "Separation of concerns makes code easier to test and maintain"],
+      "answer": "MVC separates an application into three layers. Model: manages data, business logic, and database interactions. View: renders the UI and presents data to the user. Controller: receives user input, invokes the appropriate model logic, and selects which view to render. This separation makes each layer independently testable and maintainable."
+    },
+    {
+      "question": "What is the difference between SQL and NoSQL databases? Give examples of when you would use each.",
+      "hints": ["SQL: relational, strict schema, ACID; NoSQL: flexible schema, horizontal scaling", "SQL for financial data, reporting; NoSQL for user profiles, session data, real-time feeds"],
+      "answer": "SQL databases use a fixed relational schema with tables, foreign keys, and ACID transactions — ideal for financial data, complex reporting, and situations requiring strong consistency. NoSQL databases offer flexible schemas and horizontal scalability — suitable for user profiles, session storage, real-time event streams, or document-centric data where schema evolves rapidly."
+    },
+    {
+      "question": "What do HTTP status codes 200, 201, 400, 401, 403, 404, and 500 mean?",
+      "hints": ["2xx success; 4xx client errors; 5xx server errors", "201 Created is returned after a successful POST that creates a resource"],
+      "answer": "200 OK — request succeeded. 201 Created — resource was successfully created (POST). 400 Bad Request — invalid client input. 401 Unauthorized — authentication required or failed. 403 Forbidden — authenticated but not permitted. 404 Not Found — resource does not exist. 500 Internal Server Error — unexpected server-side failure."
+    },
+    {
+      "question": "What is a foreign key in a relational database and how does it enforce referential integrity?",
+      "hints": ["A foreign key is a column referencing the primary key of another table", "The database prevents orphan records (deleting a parent that has children)"],
+      "answer": "A foreign key is a column (or columns) in one table that references the primary key of another table, establishing a relationship between them. The database enforces referential integrity: it prevents inserting a child row with a non-existent parent key, and prevents deleting a parent row that still has children (unless CASCADE is configured)."
+    },
+    {
+      "question": "What is the difference between authentication and authorization?",
+      "hints": ["Authentication: verifying identity (who are you?)", "Authorization: checking permissions (what are you allowed to do?)"],
+      "answer": "Authentication verifies the identity of a user — 'who are you?' — typically via credentials like a password, token, or certificate. Authorization determines what an authenticated user is allowed to do — 'what can you access?' — typically via roles or permission rules. Authentication must succeed before authorization is evaluated."
+    }
+  ],
+  "middle": [
+    {
+      "question": "Explain the SOLID principles. Give a brief example of each.",
+      "hints": ["S: Single Responsibility; O: Open/Closed; L: Liskov Substitution; I: Interface Segregation; D: Dependency Inversion", "Focus on one principle you've applied in practice"],
+      "answer": "Single Responsibility — a class has one reason to change (UserRepository only handles DB access, not email sending). Open/Closed — open for extension, closed for modification (add new payment methods via new classes, not if/else). Liskov Substitution — subtypes must be substitutable for their base type. Interface Segregation — prefer many small interfaces over one fat one. Dependency Inversion — depend on abstractions, not concretions (inject an interface, not a concrete class)."
+    },
+    {
+      "question": "Describe the Singleton, Factory, and Observer design patterns. When would you use each?",
+      "hints": ["Singleton: one instance (DB connection pool); Factory: decouple creation; Observer: event-driven updates", "Beware of Singleton overuse — it can introduce global state"],
+      "answer": "Singleton ensures only one instance exists — used for shared resources like a DB connection pool or logger. Factory decouples object creation from usage, letting you instantiate subclasses based on runtime conditions without the caller knowing the concrete type. Observer (pub/sub) lets objects subscribe to events emitted by another object — used for event-driven architectures, UI updates, and notification systems."
+    },
+    {
+      "question": "What are message queues? Give examples of systems that use them and explain why.",
+      "hints": ["RabbitMQ, Apache Kafka, AWS SQS", "Decouple producers from consumers, handle traffic spikes, enable async processing"],
+      "answer": "Message queues (RabbitMQ, Kafka, SQS) decouple producers from consumers: producers publish messages without waiting for consumers to process them. This enables async processing, absorbs traffic spikes (queue buffers load), and improves resilience (consumers can be down temporarily and catch up). Kafka additionally provides ordered, replayable event streams useful for event sourcing and analytics pipelines."
+    },
+    {
+      "question": "Explain common caching strategies: cache-aside, write-through, and write-behind. When would you use each?",
+      "hints": ["Cache-aside: app checks cache first, writes through on miss", "Write-through: every write goes to cache and DB simultaneously; Write-behind: write to cache, persist async"],
+      "answer": "Cache-aside (lazy loading): the app reads cache first; on a miss it fetches from DB, populates cache, and returns. Simple and widely used. Write-through: every write goes to cache and DB simultaneously — data is always consistent but writes are slower. Write-behind (write-back): write to cache immediately and asynchronously persist to DB later — fastest writes but risk of data loss on crash."
+    },
+    {
+      "question": "What is the N+1 query problem and how do you solve it?",
+      "hints": ["N+1 occurs when fetching N records triggers N additional queries for related data", "Solutions: eager loading (JOIN), batching, DataLoader pattern"],
+      "answer": "The N+1 problem occurs when code fetches a list of N records and then issues one extra query per record to load related data — resulting in N+1 database round-trips. Solutions: eager loading with JOIN (fetch all related data in one query), batch loading (group IDs and run one IN query), or the DataLoader pattern (used in GraphQL to batch and deduplicate within a request)."
+    },
+    {
+      "question": "What are microservices? What are their advantages and disadvantages compared to a monolith?",
+      "hints": ["Advantages: independent deployability, scalability per service, technology diversity", "Disadvantages: distributed system complexity, network latency, data consistency challenges"],
+      "answer": "Microservices decompose an application into small, independently deployable services each owning its data. Advantages: services scale independently, teams deploy autonomously, and each service can use the best-fit technology. Disadvantages: distributed system complexity (network failures, latency), inter-service communication overhead, data consistency across service boundaries, and significantly more operational complexity than a monolith."
+    },
+    {
+      "question": "What is database normalization? Explain 1NF, 2NF, and 3NF with examples.",
+      "hints": ["1NF: atomic columns; 2NF: no partial dependency on composite key; 3NF: no transitive dependency", "Normalization reduces redundancy; denormalization can improve read performance"],
+      "answer": "1NF: all column values are atomic (no arrays or repeating groups). 2NF: no non-key column depends on only part of a composite primary key. 3NF: no non-key column depends on another non-key column (no transitive dependencies). Normalization eliminates data redundancy and update anomalies; denormalization intentionally violates these rules to speed up read-heavy queries."
+    },
+    {
+      "question": "What is JWT (JSON Web Token)? How does it work and what are its security considerations?",
+      "hints": ["JWT: header.payload.signature — the signature is verified server-side with a secret or public key", "Risks: storing sensitive data in payload (it is base64-encoded, not encrypted), algorithm confusion attacks"],
+      "answer": "JWT is a compact token with three base64url-encoded sections: header (algorithm), payload (claims), and signature. The server signs the header+payload; on subsequent requests the server verifies the signature without needing a session store. Security considerations: the payload is only encoded, not encrypted — never put sensitive data in it. Use RS256 or ES256 over HS256 in multi-service environments. Protect against algorithm confusion attacks by explicitly specifying the expected algorithm."
+    },
+    {
+      "question": "How does database connection pooling work and why is it important?",
+      "hints": ["A pool maintains a set of reusable connections instead of opening a new one per request", "Reduces connection overhead; pool size must be tuned to match DB capacity"],
+      "answer": "A connection pool pre-opens a set of database connections and reuses them across requests, instead of creating and tearing down a connection per query (which is expensive — TCP handshake, authentication, SSL negotiation). Applications borrow a connection from the pool, use it, and return it. Pool size must be tuned: too small causes queuing under load; too large overwhelms the database server."
+    }
+  ],
+  "senior": [
+    {
+      "question": "Explain the CAP theorem. Give real-world examples of systems that choose CP vs AP.",
+      "hints": ["You can only guarantee two of: Consistency, Availability, Partition Tolerance", "CP: HBase, Zookeeper; AP: Cassandra, DynamoDB (eventual consistency)"],
+      "answer": "CAP states that a distributed system can guarantee at most two of: Consistency (every read sees the latest write), Availability (every request gets a non-error response), and Partition Tolerance (the system continues despite network partitions). Since partitions are unavoidable, the real choice is CP vs AP. CP (HBase, Zookeeper): returns an error rather than stale data during a partition. AP (Cassandra, DynamoDB): returns stale data but stays available, converging later via eventual consistency."
+    },
+    {
+      "question": "What is Event Sourcing and how does it differ from traditional CRUD? What is CQRS?",
+      "hints": ["Event Sourcing: store all changes as immutable events; current state is derived by replaying events", "CQRS: separate read and write models for scalability and clarity"],
+      "answer": "Traditional CRUD overwrites current state; Event Sourcing stores every state change as an immutable, append-only event. Current state is derived by replaying the event log. Benefits: full audit trail, time-travel debugging, and projections. CQRS (Command Query Responsibility Segregation) separates write operations (commands that produce events) from read operations (queries against optimised read models/projections), enabling each side to scale and be optimised independently."
+    },
+    {
+      "question": "What are the main challenges of building distributed systems and how do you address them?",
+      "hints": ["Partial failures, network latency, clock skew, split-brain scenarios", "Patterns: circuit breaker, sagas, idempotent operations, distributed tracing"],
+      "answer": "Distributed systems face: partial failures (one service fails while others run), network latency and unreliability, clock skew making event ordering unreliable, and split-brain scenarios. Address with: circuit breakers to stop cascading failures, saga pattern for distributed transactions, idempotent operations so retries are safe, distributed tracing (OpenTelemetry) for observability, and consensus algorithms (Raft, Paxos) for leader election."
+    },
+    {
+      "question": "What is database sharding? Describe different sharding strategies and their trade-offs.",
+      "hints": ["Sharding splits data horizontally across multiple DB instances", "Range-based, hash-based, directory-based; trade-offs: cross-shard queries, rebalancing"],
+      "answer": "Sharding horizontally partitions data across multiple database instances, each holding a subset. Range-based: partition by value ranges — simple but prone to hot spots. Hash-based: apply a hash to the shard key for uniform distribution — cross-shard range queries are expensive. Directory-based: a lookup service maps keys to shards — flexible but the directory is a potential bottleneck. All strategies complicate cross-shard queries and rebalancing when adding new shards."
+    },
+    {
+      "question": "What is a circuit breaker pattern and why is it critical in microservice architectures?",
+      "hints": ["Opens the circuit after repeated failures to stop cascading failure propagation", "States: Closed, Open, Half-Open; implemented with libraries like Resilience4j, Polly"],
+      "answer": "The circuit breaker wraps calls to an external service and tracks failure rates. In the Closed state it passes calls through. After a threshold of failures it Opens, immediately returning errors without calling the failing service — preventing resource exhaustion and cascading failures. After a timeout it moves to Half-Open, allowing a probe request through; success closes it, failure reopens it. Implemented via Resilience4j (JVM) or Polly (.NET)."
+    },
+    {
+      "question": "What is Domain-Driven Design (DDD)? Explain Bounded Contexts, Aggregates, and Domain Events.",
+      "hints": ["Bounded Context: explicit boundary for a model; Aggregate: cluster of domain objects with one root", "Domain Events: facts that have occurred, used for decoupling and event sourcing"],
+      "answer": "DDD aligns software structure with business domain concepts. Bounded Context: an explicit boundary within which a domain model is consistent — 'Order' means different things in Billing vs Shipping. Aggregate: a cluster of domain objects treated as a single unit with one root entity enforcing invariants (e.g. Order + OrderLines). Domain Events: immutable facts that something happened ('OrderPlaced') used to decouple bounded contexts and enable event sourcing."
+    },
+    {
+      "question": "How would you design a rate-limiting system capable of handling 100,000 requests per second?",
+      "hints": ["Token bucket or sliding window algorithm; store counters in Redis", "Distribute across multiple nodes with consistent hashing; handle clock synchronization"],
+      "answer": "Use a sliding window counter or token bucket algorithm. Store counters in Redis with TTL — Redis single-threaded operations avoid race conditions and handle ~100k ops/sec per node. For higher throughput, shard counters via consistent hashing across a Redis cluster. Place rate-limiting logic in an API gateway or middleware layer to apply before hitting application servers. Handle clock skew between nodes with NTP and accept a small margin of error."
+    },
+    {
+      "question": "What is a service mesh and what problems does it solve in a microservices architecture?",
+      "hints": ["Service mesh (Istio, Linkerd) handles inter-service communication: mTLS, load balancing, retries, observability", "Removes cross-cutting concerns from application code to the infrastructure layer"],
+      "answer": "A service mesh (Istio, Linkerd) injects a sidecar proxy (Envoy) alongside each service to handle all inter-service communication. It provides: mutual TLS for zero-trust encryption, automatic retries and circuit breaking, load balancing, distributed tracing, and traffic shaping (canary deployments, A/B tests). Cross-cutting concerns move from application code to the infrastructure layer, letting developers focus on business logic."
+    },
+    {
+      "question": "How would you implement a globally consistent distributed ID generator without a single point of failure?",
+      "hints": ["Options: Twitter Snowflake (timestamp + machine ID + sequence), UUIDv7, database sequences with coordination", "Consider monotonicity, uniqueness guarantees, and throughput requirements"],
+      "answer": "Twitter Snowflake: a 64-bit integer composed of a 41-bit millisecond timestamp, 10-bit machine/datacenter ID, and 12-bit sequence number. Each node generates IDs independently with no coordination — no single point of failure, ~4M IDs/second per node. UUIDv7 is a standards-based alternative using a time-ordered UUID. Avoid database auto-increment for distributed systems as it requires centralised coordination and becomes a bottleneck."
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "junior": [
+    {
+      "question": "What is a User Story? Write an example and explain the INVEST criteria.",
+      "hints": ["Format: As a [role], I want [goal], so that [benefit]", "INVEST: Independent, Negotiable, Valuable, Estimable, Small, Testable"],
+      "answer": "A User Story captures a feature from the end-user perspective: 'As a registered user, I want to reset my password via email, so that I can regain access to my account.' INVEST criteria: Independent (can be developed alone), Negotiable (details are discussed, not fixed), Valuable (delivers benefit to the user or business), Estimable (team can size it), Small (fits in one sprint), Testable (acceptance criteria are verifiable)."
+    },
+    {
+      "question": "What are acceptance criteria and how do you write effective ones?",
+      "hints": ["Define the conditions a story must meet to be accepted by the product owner", "Use Given/When/Then (Gherkin) or a checklist format; be specific and testable"],
+      "answer": "Acceptance criteria define the specific, observable conditions a user story must satisfy for the product owner to accept it. Effective criteria are unambiguous and testable. Gherkin format: 'Given I am on the login page, When I enter a valid email and password and click Login, Then I am redirected to the dashboard and see my username.' Each criterion should cover one scenario and leave no room for interpretation."
+    },
+    {
+      "question": "What is an MVP (Minimum Viable Product)? How do you decide what goes into it?",
+      "hints": ["MVP is the smallest product that delivers core value and allows validated learning", "Focus on the riskiest assumptions; use MoSCoW or impact vs. effort matrices"],
+      "answer": "An MVP is the smallest set of features that delivers enough value for real users to use it and provides validated learning about whether the product direction is correct. Decide what's in: identify the core value hypothesis and the riskiest assumptions; include only features that test those assumptions. Use MoSCoW or an impact vs. effort matrix to cut scope ruthlessly. Everything non-essential goes on the backlog for later iterations."
+    },
+    {
+      "question": "Who is a stakeholder? How do you identify and manage stakeholder relationships on a project?",
+      "hints": ["Anyone affected by or who can affect the project: sponsors, users, regulators, team members", "Stakeholder map/register; tailor communication frequency and format per stakeholder group"],
+      "answer": "A stakeholder is anyone who affects or is affected by the project — sponsors, end users, product owners, regulators, developers, support teams. Identify them through stakeholder mapping: list all parties, assess their influence and interest levels, and create a stakeholder register. Manage relationships by tailoring communication: high influence/high interest stakeholders need frequent engagement; high influence/low interest need periodic updates; low influence/high interest need regular information."
+    },
+    {
+      "question": "What is a Use Case and how does it differ from a User Story?",
+      "hints": ["Use Case describes a system-level interaction with a goal; includes actors, preconditions, flows", "User Stories are lighter, conversation-starters focused on user value; Use Cases are more formal"],
+      "answer": "A Use Case formally describes a system-level interaction: actor, preconditions, main success flow, alternative flows, and postconditions. It is comprehensive and documents all paths through a feature. A User Story is a lightweight, conversational placeholder for a requirement: 'As a user, I want X so that Y' — designed to trigger discussion, not document everything. Use Cases suit complex systems with formal contracts; User Stories suit agile development."
+    },
+    {
+      "question": "What is the difference between functional and non-functional requirements? Give examples.",
+      "hints": ["Functional: what the system does (user login, generate report, send email)", "Non-functional: how well it does it (response time < 1s, 99.9% uptime, GDPR compliance)"],
+      "answer": "Functional requirements specify what the system shall do — 'The system shall allow users to reset their password via email'. Non-functional requirements specify how well it does it — 'The password reset email shall be delivered within 30 seconds' (performance), 'The system shall be available 99.9% of the time' (reliability), 'All personal data shall be encrypted at rest' (security/compliance). NFRs are often overlooked but critical to system quality."
+    },
+    {
+      "question": "What is SCRUM and what is the role of a Business Analyst in a SCRUM team?",
+      "hints": ["SCRUM: iterative framework with Sprints, ceremonies (Planning, Daily, Review, Retro)", "BA bridges business and development: refines backlog, clarifies requirements, supports PO"],
+      "answer": "Scrum is an agile framework using time-boxed Sprints (1–4 weeks) with four ceremonies: Sprint Planning, Daily Stand-up, Sprint Review, and Retrospective. The BA's role (which may overlap with Product Owner): refine and prioritise the product backlog, translate business needs into clear user stories with acceptance criteria, resolve ambiguities during development, participate in sprint reviews to validate delivered features, and bridge communication between business stakeholders and the development team."
+    },
+    {
+      "question": "What is a business process flow diagram and why is it useful in requirements gathering?",
+      "hints": ["A visual representation of steps, decisions, and actors in a process", "Helps identify gaps, bottlenecks, and automation opportunities; aligns stakeholder understanding"],
+      "answer": "A process flow diagram visually maps the sequence of steps, decision points, actors, and data flows in a business process using standardised shapes (rectangles for activities, diamonds for decisions, arrows for flow). It is invaluable in requirements gathering because it creates a shared understanding of the as-is process, reveals gaps, redundancies, and bottlenecks, and identifies automation opportunities — all before any software is designed."
+    },
+    {
+      "question": "What is the difference between a product backlog and a sprint backlog?",
+      "hints": ["Product backlog: all desired work ordered by priority (owned by PO)", "Sprint backlog: subset committed to for the current sprint (owned by the development team)"],
+      "answer": "The product backlog is the ordered, comprehensive list of everything desired in the product — features, fixes, technical debt, research — owned and prioritised by the Product Owner. The sprint backlog is the subset of product backlog items the team commits to completing in the current sprint, plus the plan for how to deliver them. The sprint backlog is owned by the development team and is locked (in principle) for the sprint duration."
+    }
+  ],
+  "middle": [
+    {
+      "question": "What is gap analysis and how do you conduct one?",
+      "hints": ["Gap analysis compares the current state ('as-is') with the desired future state ('to-be')", "Steps: document current state, define target state, identify gaps, recommend solutions"],
+      "answer": "Gap analysis identifies the difference between where the business is now (as-is) and where it needs to be (to-be). Steps: document the current state through stakeholder interviews, process observation, and data analysis; define the desired target state aligned with business objectives; identify the gaps across process, people, technology, and data dimensions; quantify the impact of each gap; and produce a prioritised roadmap of solutions to close them."
+    },
+    {
+      "question": "What is BPMN notation? Explain the key elements and when you would use BPMN over simpler diagrams.",
+      "hints": ["BPMN: Business Process Model and Notation — standard for visualising business workflows", "Key elements: events, activities, gateways, flows, pools/lanes; use when precision and handoff clarity matter"],
+      "answer": "BPMN is an OMG standard for modelling business processes with precise, internationally understood notation. Key elements: Events (circles) mark start/end/intermediate triggers; Activities (rounded rectangles) are tasks or sub-processes; Gateways (diamonds) model decisions and parallel flows; Sequence Flows (arrows) connect them; Pools and Lanes define organisational boundaries and responsibilities. Use BPMN over simple flowcharts when processes cross team/system boundaries, require formal documentation, or will drive system automation (e.g. BPMS/workflow engines)."
+    },
+    {
+      "question": "How do you prioritize requirements using the MoSCoW method? What are its limitations?",
+      "hints": ["Must have, Should have, Could have, Won't have (for now)", "Limitations: everything becomes 'Must'; requires strong facilitation and stakeholder alignment"],
+      "answer": "MoSCoW categorises requirements into: Must have (non-negotiable for launch), Should have (important but not critical for initial release), Could have (nice-to-have if time allows), Won't have this time (explicitly deferred). Limitations: without strong facilitation, stakeholders classify everything as Must — the BA must challenge and negotiate with business impact evidence. It also lacks a quantitative basis, making it subjective without supporting data."
+    },
+    {
+      "question": "How do you handle conflicting requirements from different stakeholders?",
+      "hints": ["Facilitate structured workshops, trace each requirement to business objectives", "Escalate with data and impact analysis; document decisions and rationale"],
+      "answer": "First, understand each stakeholder's underlying business objective behind their requirement — often the conflict dissolves when objectives are aligned. Facilitate a structured workshop where all parties discuss trade-offs with business impact data. Trace conflicting requirements to strategic goals to reveal which has higher organisational priority. If resolution cannot be reached at the working level, escalate to the appropriate decision-maker with a clear impact analysis of each option. Document the decision and rationale regardless of outcome."
+    },
+    {
+      "question": "What wireframing tools do you use and how do wireframes support the requirements process?",
+      "hints": ["Tools: Figma, Balsamiq, Miro, Axure", "Wireframes make abstract requirements concrete, align expectations, reveal missing requirements early"],
+      "answer": "Common tools: Figma (high-fidelity, collaborative), Balsamiq (low-fidelity, fast sketching), Axure (interactive prototypes), Miro (collaborative whiteboarding for early concepts). Wireframes transform abstract requirements into concrete visuals that non-technical stakeholders can react to immediately — uncovering misunderstandings, missing edge cases, and unstated assumptions long before development begins, dramatically reducing costly late-stage rework."
+    },
+    {
+      "question": "What are KPIs and how do you define them for a new digital product?",
+      "hints": ["KPIs: measurable values that track progress toward business objectives", "Start from business goals → identify leading and lagging indicators → set baselines and targets"],
+      "answer": "KPIs (Key Performance Indicators) are quantitative measures that track progress toward strategic business objectives. For a new digital product: start from business goals (e.g. increase revenue, reduce churn); identify lagging indicators that measure outcomes (conversion rate, monthly active users) and leading indicators that predict them (onboarding completion rate, feature adoption). Set a baseline from comparable data or launch benchmarks, define targets, and review regularly to course-correct."
+    },
+    {
+      "question": "What is a Requirements Traceability Matrix (RTM) and why is it important?",
+      "hints": ["RTM maps requirements to test cases, design elements, and deliverables", "Ensures full coverage, supports impact analysis for changes, aids compliance audits"],
+      "answer": "An RTM is a document that maps each requirement to the design elements, development items, and test cases that satisfy it, creating end-to-end traceability. It ensures: no requirement is left untested (coverage), impact of a requirement change can be assessed by tracing what is affected downstream, and regulatory/audit requirements can be demonstrated by showing every requirement is met and verified."
+    },
+    {
+      "question": "How do you perform a feasibility study for a proposed solution?",
+      "hints": ["Assess technical, financial, operational, legal, and schedule feasibility", "Compare options against feasibility criteria; present a recommendation with trade-offs"],
+      "answer": "A feasibility study assesses whether a proposed solution is viable across five dimensions: Technical (can it be built with available technology and skills?), Financial (does the ROI justify the cost?), Operational (can the organisation support and use it?), Legal/regulatory (does it comply with applicable laws?), and Schedule (can it be delivered in the required timeframe?). Evaluate multiple solution options against these criteria and present a recommendation with clear trade-offs."
+    },
+    {
+      "question": "How do you elicit requirements from stakeholders who struggle to articulate what they need?",
+      "hints": ["Techniques: workshops, interviews, observation (job shadowing), prototyping, user journey mapping", "Ask 'what problem are you solving?' rather than 'what do you want the system to do?'"],
+      "answer": "Reframe the conversation from system features to business problems: 'What takes the most time in your current process?' or 'What would success look like in 6 months?' Use observation (job shadowing) to see actual workflows rather than described ones — people often omit steps they consider obvious. Low-fidelity prototypes elicit reactions ('that's not quite right') from stakeholders who cannot articulate requirements verbally. User journey mapping externalises the process collaboratively and naturally surfaces requirements."
+    }
+  ],
+  "senior": [
+    {
+      "question": "What is enterprise architecture and how does a senior BA work within it?",
+      "hints": ["EA aligns IT strategy with business goals across four domains: Business, Data, Application, Technology (TOGAF)", "BA ensures solution requirements fit within the enterprise roadmap and architectural standards"],
+      "answer": "Enterprise Architecture (TOGAF framework) aligns IT with business strategy across four domains: Business (processes and capabilities), Data (information assets), Application (software portfolio), and Technology (infrastructure). A senior BA works within EA by ensuring proposed solutions fit the enterprise capability roadmap, respect architectural standards (approved technology stacks, integration patterns), avoid duplicating existing systems, and contribute to — rather than fragment — the target architecture. The BA bridges domain-level business requirements and enterprise constraints."
+    },
+    {
+      "question": "How do you approach a digital transformation initiative from a business analysis perspective?",
+      "hints": ["Start with strategic goals and capability assessment; identify process and technology gaps", "Manage change carefully: stakeholder buy-in, training, phased rollout, measure outcomes"],
+      "answer": "Start with strategic alignment: understand the transformation's business objectives and the current capability baseline. Conduct a capability and maturity assessment to identify process, data, and technology gaps. Design the future-state operating model. Develop a phased roadmap that delivers value incrementally while managing risk. The human side is critical: map impact on roles and processes, build a change management plan (ADKAR), engage champions early, plan training, and define success metrics to track transformation outcomes."
+    },
+    {
+      "question": "How do you calculate and present ROI for a proposed IT solution to executive stakeholders?",
+      "hints": ["ROI = (Net Benefits / Investment Cost) × 100; include cost savings, revenue gains, risk reduction", "Use NPV/IRR for multi-year projects; present sensitivity analysis and break-even point"],
+      "answer": "ROI = (Net Benefits − Investment Cost) / Investment Cost × 100. Quantify benefits: direct cost savings (headcount reduction, infrastructure), revenue uplift (new sales enabled), efficiency gains (hours saved × labour cost), and risk reduction (cost of potential incidents avoided). For multi-year projects use NPV (discounted cash flows) and IRR. Present to executives with: a summary ROI and payback period, a sensitivity analysis showing best/base/worst case, and the key assumptions made — executives need to understand what the model relies on."
+    },
+    {
+      "question": "How do you manage organizational change when a new system significantly changes how people work?",
+      "hints": ["Change management frameworks: ADKAR, Kotter's 8 Steps", "Early stakeholder engagement, impact assessment, training programs, champions network, feedback loops"],
+      "answer": "Use a structured framework such as ADKAR (Awareness, Desire, Knowledge, Ability, Reinforcement). Start with a change impact assessment: map which roles are affected, how their work changes, and the magnitude of change. Build Awareness through leadership communication. Develop Desire by involving users early and addressing 'what's in it for me?'. Deliver Knowledge through targeted training. Support Ability with hands-on practice and super-users/champions. Reinforce with post-launch support, feedback loops, and celebrating early wins."
+    },
+    {
+      "question": "How do you handle regulatory compliance requirements (e.g., GDPR, HIPAA) in a product?",
+      "hints": ["Involve legal/compliance early; map data flows, identify sensitive data, document processing activities", "Translate regulatory clauses into testable functional and non-functional requirements"],
+      "answer": "Engage the legal/compliance team from the requirements phase — not as a final review. Map all data flows to identify personal/sensitive data and their processing purposes. Translate regulatory clauses into concrete, testable requirements: 'The system must allow a data subject to request deletion of their personal data within 30 days' (GDPR Art. 17). Document data processing activities in a record (GDPR Art. 30). Conduct a Data Protection Impact Assessment for high-risk processing. Build compliance evidence into the RTM for audit readiness."
+    },
+    {
+      "question": "How do you approach system integration requirements between legacy and modern systems?",
+      "hints": ["Document integration points with context diagrams and interface specifications", "Define data formats, protocols, error handling, SLAs; consider strangler fig or API gateway patterns"],
+      "answer": "Start with a context diagram to map all integration touchpoints. For each integration, document: data exchanged, format (JSON/XML/EDI), protocol (REST/SOAP/MQ), direction (push/pull), frequency, volume, error handling, and SLAs. Identify constraints imposed by the legacy system (fixed data formats, batch-only, no APIs). Recommend integration patterns: API gateway to expose legacy data, strangler fig to incrementally replace legacy functionality, or event-driven middleware for decoupling. Prototype the integration early — legacy system behaviour often differs from documentation."
+    },
+    {
+      "question": "What is business capability modeling and how is it used in strategic planning?",
+      "hints": ["A capability map represents what a business does (independent of how) at different levels of abstraction", "Used for investment prioritisation, redundancy identification, and aligning IT to business strategy"],
+      "answer": "A business capability model is a hierarchical map of what an organisation does — capabilities are stable, organisation and process-independent, and defined at multiple levels of abstraction (L1: Customer Management; L2: Customer Onboarding, Customer Support; L3: KYC Verification). It is used in strategic planning to: assess capability maturity and identify weaknesses, prioritise IT investment (heat map overlaid with strategic importance and current performance), identify redundant systems serving the same capability, and communicate IT strategy in business terms."
+    },
+    {
+      "question": "How do you facilitate requirement workshops with 20+ diverse stakeholders with competing interests?",
+      "hints": ["Pre-workshop: clear agenda, pre-read materials, identify decision-makers and influencers", "Techniques: dot voting, affinity mapping, parking lot, structured conflict resolution"],
+      "answer": "Pre-workshop: circulate a clear agenda, share any pre-read materials, and pre-interview key stakeholders to understand positions and politics. In the session: open with agreed objectives and ground rules; use structured exercises (affinity mapping for ideation, dot voting for prioritisation) to give everyone equal voice. Employ a 'parking lot' to capture out-of-scope items without losing them. When conflict arises, redirect to business objectives: 'Which option better serves our goal of X?' Conclude with explicit decisions, owners, and next steps documented and shared within 24 hours."
+    },
+    {
+      "question": "Describe a situation where requirements changed significantly mid-project. How did you manage it?",
+      "hints": ["Assess impact on scope, timeline, budget; present options (absorb, defer, re-scope) with trade-offs", "Document formally through a change request process; update the RTM and test plan accordingly"],
+      "answer": "When significant scope change arrives mid-project, resist the urge to simply absorb it. Conduct an impact assessment covering scope, schedule, budget, and risk. Present the sponsor with clear options: absorb the change (extend timeline or budget), defer existing scope to compensate, or de-scope the new requirement to a later phase. Obtain a formal decision via a change request (signed off by the sponsor). Update the business case, RTM, test plan, and sprint backlog to reflect the approved change. Document the decision and rationale to avoid scope creep by precedent."
+    }
+  ]
+}

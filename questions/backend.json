@@ -2,142 +2,1207 @@
   "junior": [
     {
       "question": "What is the difference between REST and SOAP? When would you choose one over the other?",
-      "hints": ["REST uses HTTP verbs and is stateless; SOAP is a protocol with strict XML schemas", "REST is simpler and more common for web APIs; SOAP is used in enterprise/financial systems"],
+      "hints": [
+        "REST uses HTTP verbs and is stateless; SOAP is a protocol with strict XML schemas",
+        "REST is simpler and more common for web APIs; SOAP is used in enterprise/financial systems"
+      ],
       "answer": "REST is an architectural style that uses standard HTTP verbs (GET, POST, PUT, DELETE), is stateless, and typically exchanges JSON. SOAP is a protocol with strict XML-based message envelopes, built-in error handling, and WS-* standards for security and transactions. Choose REST for modern web APIs due to simplicity; choose SOAP when you need strict contracts, built-in ACID transactions, or must integrate with legacy enterprise systems."
     },
     {
       "question": "Explain the purpose of HTTP methods GET, POST, PUT, PATCH, and DELETE. When should you use each?",
-      "hints": ["GET retrieves; POST creates; PUT replaces the full resource; PATCH applies partial update; DELETE removes", "GET and DELETE are idempotent; PUT is idempotent; POST is not"],
+      "hints": [
+        "GET retrieves; POST creates; PUT replaces the full resource; PATCH applies partial update; DELETE removes",
+        "GET and DELETE are idempotent; PUT is idempotent; POST is not"
+      ],
       "answer": "GET retrieves a resource (safe, idempotent, cacheable). POST creates a new resource or submits data (not idempotent). PUT replaces an entire resource with the provided representation (idempotent). PATCH applies a partial update to a resource. DELETE removes a resource (idempotent). Idempotent means repeating the request produces the same server state."
     },
     {
       "question": "What is a database index and how does it improve query performance? What are the downsides?",
-      "hints": ["An index is a data structure (B-tree) that allows the database to find rows without a full table scan", "Downsides: slower writes, extra disk space"],
+      "hints": [
+        "An index is a data structure (B-tree) that allows the database to find rows without a full table scan",
+        "Downsides: slower writes, extra disk space"
+      ],
       "answer": "An index is an auxiliary data structure (usually a B-tree) on one or more columns that the database uses to locate rows without scanning the entire table, dramatically speeding up SELECT queries on indexed columns. Downsides: every INSERT, UPDATE, or DELETE must also update the index, slowing writes; and indexes consume additional disk space."
     },
     {
       "question": "What is a database transaction and what are the ACID properties?",
-      "hints": ["Atomicity, Consistency, Isolation, Durability", "Transactions ensure all operations succeed or all are rolled back"],
+      "hints": [
+        "Atomicity, Consistency, Isolation, Durability",
+        "Transactions ensure all operations succeed or all are rolled back"
+      ],
       "answer": "A transaction is a unit of work that must complete entirely or not at all. ACID: Atomicity — all operations succeed or all are rolled back. Consistency — the database moves from one valid state to another. Isolation — concurrent transactions do not see each other's uncommitted changes. Durability — once committed, changes survive crashes (written to durable storage)."
     },
     {
       "question": "Describe the MVC architectural pattern. What are the responsibilities of each layer?",
-      "hints": ["Model: data and business logic; View: presentation; Controller: handles user input and coordinates", "Separation of concerns makes code easier to test and maintain"],
+      "hints": [
+        "Model: data and business logic; View: presentation; Controller: handles user input and coordinates",
+        "Separation of concerns makes code easier to test and maintain"
+      ],
       "answer": "MVC separates an application into three layers. Model: manages data, business logic, and database interactions. View: renders the UI and presents data to the user. Controller: receives user input, invokes the appropriate model logic, and selects which view to render. This separation makes each layer independently testable and maintainable."
     },
     {
       "question": "What is the difference between SQL and NoSQL databases? Give examples of when you would use each.",
-      "hints": ["SQL: relational, strict schema, ACID; NoSQL: flexible schema, horizontal scaling", "SQL for financial data, reporting; NoSQL for user profiles, session data, real-time feeds"],
+      "hints": [
+        "SQL: relational, strict schema, ACID; NoSQL: flexible schema, horizontal scaling",
+        "SQL for financial data, reporting; NoSQL for user profiles, session data, real-time feeds"
+      ],
       "answer": "SQL databases use a fixed relational schema with tables, foreign keys, and ACID transactions — ideal for financial data, complex reporting, and situations requiring strong consistency. NoSQL databases offer flexible schemas and horizontal scalability — suitable for user profiles, session storage, real-time event streams, or document-centric data where schema evolves rapidly."
     },
     {
       "question": "What do HTTP status codes 200, 201, 400, 401, 403, 404, and 500 mean?",
-      "hints": ["2xx success; 4xx client errors; 5xx server errors", "201 Created is returned after a successful POST that creates a resource"],
+      "hints": [
+        "2xx success; 4xx client errors; 5xx server errors",
+        "201 Created is returned after a successful POST that creates a resource"
+      ],
       "answer": "200 OK — request succeeded. 201 Created — resource was successfully created (POST). 400 Bad Request — invalid client input. 401 Unauthorized — authentication required or failed. 403 Forbidden — authenticated but not permitted. 404 Not Found — resource does not exist. 500 Internal Server Error — unexpected server-side failure."
     },
     {
       "question": "What is a foreign key in a relational database and how does it enforce referential integrity?",
-      "hints": ["A foreign key is a column referencing the primary key of another table", "The database prevents orphan records (deleting a parent that has children)"],
+      "hints": [
+        "A foreign key is a column referencing the primary key of another table",
+        "The database prevents orphan records (deleting a parent that has children)"
+      ],
       "answer": "A foreign key is a column (or columns) in one table that references the primary key of another table, establishing a relationship between them. The database enforces referential integrity: it prevents inserting a child row with a non-existent parent key, and prevents deleting a parent row that still has children (unless CASCADE is configured)."
     },
     {
       "question": "What is the difference between authentication and authorization?",
-      "hints": ["Authentication: verifying identity (who are you?)", "Authorization: checking permissions (what are you allowed to do?)"],
+      "hints": [
+        "Authentication: verifying identity (who are you?)",
+        "Authorization: checking permissions (what are you allowed to do?)"
+      ],
       "answer": "Authentication verifies the identity of a user — 'who are you?' — typically via credentials like a password, token, or certificate. Authorization determines what an authenticated user is allowed to do — 'what can you access?' — typically via roles or permission rules. Authentication must succeed before authorization is evaluated."
+    },
+    {
+      "question": "What is polymorphism in object-oriented programming? Give an example.",
+      "hints": [
+        "Polymorphism allows different classes to be treated through a common interface",
+        "Runtime polymorphism is achieved via method overriding; compile-time via method overloading"
+      ],
+      "answer": "Polymorphism allows objects of different types to be treated uniformly through a shared interface or base class. For example, a Shape base class can have a draw() method overridden by Circle and Rectangle — calling draw() on a Shape reference invokes the correct subclass implementation at runtime. This enables writing generic code that works with any future subclass without modification."
+    },
+    {
+      "question": "What is encapsulation and why is it important in OOP?",
+      "hints": [
+        "Encapsulation bundles data and methods together and restricts direct access to internal state",
+        "Use private fields with public getters/setters to control access"
+      ],
+      "answer": "Encapsulation is the practice of bundling data (fields) and the methods that operate on that data within a class, while restricting external access to internal state via access modifiers (private, protected). This hides implementation details, prevents unintended mutations, and allows the internal representation to change without breaking dependent code. It also makes classes easier to reason about and test in isolation."
+    },
+    {
+      "question": "What is inheritance in OOP and what are its benefits and risks?",
+      "hints": [
+        "Inheritance allows a subclass to reuse and extend the behaviour of a parent class",
+        "Risk: tight coupling between parent and child; prefer composition over deep inheritance hierarchies"
+      ],
+      "answer": "Inheritance lets a subclass acquire the fields and methods of a parent class, enabling code reuse and the is-a relationship. Benefits: reduce duplication, enable polymorphism, and organise shared behaviour centrally. Risks: deep hierarchies create tight coupling, and a change to the parent can break all subclasses. Prefer composition over inheritance when the relationship is has-a rather than is-a."
+    },
+    {
+      "question": "What is an interface in programming and how does it differ from an abstract class?",
+      "hints": [
+        "An interface defines a contract (method signatures only); an abstract class can have partial implementations",
+        "A class can implement multiple interfaces but usually only extend one class"
+      ],
+      "answer": "An interface defines a contract — a set of method signatures that implementing classes must fulfil — with no implementation (in languages like Java/C#). An abstract class can have a mix of abstract methods and concrete implementations, and can carry state. A class can implement multiple interfaces (enabling multiple inheritance of type) but typically extends only one class. Use interfaces for defining capabilities shared across unrelated classes; use abstract classes for shared behaviour in a hierarchy."
+    },
+    {
+      "question": "What is an array and how does it differ from a linked list in terms of performance?",
+      "hints": [
+        "Array: contiguous memory, O(1) random access; Linked list: nodes with pointers, O(n) access but O(1) insert/delete at head",
+        "Arrays have better cache locality; linked lists avoid costly resizing"
+      ],
+      "answer": "An array stores elements in contiguous memory, providing O(1) random access by index and excellent cache locality. A linked list stores nodes each containing a value and a pointer to the next node; random access is O(n) because you must traverse from the head. However, linked lists support O(1) insertion and deletion at the head or a known pointer without shifting elements. Arrays are preferred when random access is frequent; linked lists when insertion/deletion at arbitrary positions dominates."
+    },
+    {
+      "question": "What is a stack and a queue? Give a real-world use case for each.",
+      "hints": [
+        "Stack: LIFO (Last In First Out); Queue: FIFO (First In First Out)",
+        "Stack: call stack, undo history; Queue: print jobs, task scheduling"
+      ],
+      "answer": "A stack is a LIFO data structure: the last element pushed is the first popped. Real-world use: the call stack (function calls push frames, returns pop them) and undo/redo history. A queue is a FIFO data structure: the first element enqueued is the first dequeued. Real-world use: print job spooling, task queues for background workers, and BFS graph traversal."
+    },
+    {
+      "question": "What is a hash table and how does it achieve O(1) average-case lookup?",
+      "hints": [
+        "A hash function maps keys to bucket indices; collisions are handled by chaining or open addressing",
+        "Worst case is O(n) if many keys hash to the same bucket"
+      ],
+      "answer": "A hash table computes an integer index from a key using a hash function and stores the value in the corresponding bucket. Lookup involves hashing the key and accessing that bucket directly — O(1) on average assuming the hash function distributes keys uniformly. Collisions (two keys mapping to the same bucket) are handled by chaining (a linked list per bucket) or open addressing (probing for an empty slot). Worst case degrades to O(n) with many collisions."
+    },
+    {
+      "question": "What is Big O notation? Explain O(1), O(log n), O(n), O(n log n), and O(n²) with examples.",
+      "hints": [
+        "Big O describes the upper bound on time or space complexity as input size grows",
+        "O(log n): binary search; O(n log n): merge sort; O(n²): bubble sort"
+      ],
+      "answer": "Big O notation describes how an algorithm's time or space requirements grow relative to input size. O(1): constant time regardless of input (array index lookup). O(log n): halves the search space each step (binary search). O(n): visits each element once (linear scan). O(n log n): divide and conquer sorting (merge sort, quicksort average). O(n²): nested loops over all pairs (bubble sort, selection sort). Lower Big O generally means better scalability."
+    },
+    {
+      "question": "Explain the difference between binary search and linear search. When is binary search applicable?",
+      "hints": [
+        "Binary search requires a sorted array; linear search works on unsorted data",
+        "Binary search is O(log n); linear search is O(n)"
+      ],
+      "answer": "Linear search scans elements one by one until the target is found — O(n), works on any collection. Binary search repeatedly halves the search space by comparing the target to the middle element — O(log n), but requires the array to be sorted. For large sorted datasets, binary search is dramatically faster. For unsorted data or small datasets, linear search is simpler and sufficient."
+    },
+    {
+      "question": "What is recursion? What is a base case and why is it required?",
+      "hints": [
+        "Recursion is a function that calls itself to solve a smaller version of the same problem",
+        "Without a base case the function recurses infinitely, causing a stack overflow"
+      ],
+      "answer": "Recursion is a technique where a function calls itself with a smaller or simpler input to solve a problem. A base case is a condition that stops the recursion and returns a result directly without further recursive calls. Without a base case, the function recurses infinitely and exhausts the call stack (stack overflow). Recursion is natural for tree traversal, divide-and-conquer algorithms, and problems with self-similar structure."
+    },
+    {
+      "question": "What is a tree data structure? Explain the difference between a binary tree and a binary search tree.",
+      "hints": [
+        "A tree is a hierarchical structure with a root node and child nodes",
+        "BST: left child < parent < right child, enabling O(log n) search in a balanced tree"
+      ],
+      "answer": "A tree is a hierarchical, non-linear data structure with a root node and zero or more child nodes; nodes with no children are leaves. A binary tree restricts each node to at most two children (left and right). A binary search tree (BST) additionally enforces: left subtree values are less than the node, right subtree values are greater. This ordering allows O(log n) search, insert, and delete in a balanced BST (O(n) in the worst case if unbalanced)."
+    },
+    {
+      "question": "What are the basic Git commands you use daily? Explain commit, branch, merge, and rebase.",
+      "hints": [
+        "commit: snapshot of changes; branch: independent line of development",
+        "merge: joins two branches creating a merge commit; rebase: replays commits on top of another branch for a linear history"
+      ],
+      "answer": "git commit creates a snapshot of staged changes with a message. git branch creates an independent line of development. git merge joins two branches; a merge commit records the integration point, preserving full history. git rebase replays commits from one branch on top of another, producing a linear history without merge commits — cleaner logs but rewrites commit hashes so it should not be used on shared branches."
+    },
+    {
+      "question": "What is Git branching strategy? Explain the difference between feature branches and trunk-based development.",
+      "hints": [
+        "Feature branches: developers work in isolation and merge via pull request",
+        "Trunk-based: everyone commits to main frequently, using feature flags to hide incomplete work"
+      ],
+      "answer": "In a feature branch strategy each developer works in a dedicated branch and merges to main via a pull request after review. Branches can live for days or weeks, reducing integration conflicts but potentially causing long merge conflicts. Trunk-based development has everyone commit directly to main (or very short-lived branches merged within a day), relying on feature flags to hide incomplete work. Trunk-based enables continuous integration and reduces merge debt."
+    },
+    {
+      "question": "What is Docker? What problem does it solve compared to running applications directly on a host OS?",
+      "hints": [
+        "Docker packages an application and its dependencies into a portable container image",
+        "Containers are isolated and consistent across environments: dev, staging, production"
+      ],
+      "answer": "Docker is a containerisation platform that bundles an application and all its runtime dependencies into a container image. Containers run in isolated namespaces with their own filesystem, solving the 'works on my machine' problem by ensuring identical environments across development, staging, and production. Compared to VMs, containers share the host kernel so they are lighter and start faster. Docker also simplifies deployment and horizontal scaling."
+    },
+    {
+      "question": "What is the difference between a Docker image and a Docker container?",
+      "hints": [
+        "Image: read-only blueprint; Container: running instance of an image",
+        "Images are built from a Dockerfile; containers are created with docker run"
+      ],
+      "answer": "A Docker image is a read-only, immutable blueprint built from a Dockerfile containing the application code, runtime, libraries, and configuration in layered form. A container is a live, running instance of an image — it has its own writable layer on top and its own isolated process space. Multiple containers can run from the same image simultaneously. Images are stored in a registry; containers exist on a host machine while running."
+    },
+    {
+      "question": "What is asynchronous programming? Explain the difference between callbacks, promises, and async/await.",
+      "hints": [
+        "Async programming allows non-blocking execution; the main thread continues while I/O completes",
+        "Callbacks: pass a function to be called later; Promises: chainable, avoids callback hell; async/await: syntactic sugar over Promises"
+      ],
+      "answer": "Asynchronous programming allows code to initiate an operation (e.g. HTTP request) and continue executing without waiting for the result. Callbacks pass a function invoked when the operation completes — they nest deeply ('callback hell'). Promises represent a future value and allow chaining with .then()/.catch(), flattening nested callbacks. async/await is syntactic sugar over Promises that lets you write async code in a synchronous style using await, making it easier to read and handle errors with try/catch."
+    },
+    {
+      "question": "What is an ORM (Object-Relational Mapper) and what are its benefits and trade-offs?",
+      "hints": [
+        "ORM maps database tables to classes, letting you query with objects instead of raw SQL",
+        "Trade-offs: can generate inefficient queries; hides SQL complexity which makes optimization harder"
+      ],
+      "answer": "An ORM (e.g. Eloquent, Hibernate, SQLAlchemy) maps database tables to class models, allowing you to interact with the database using object methods instead of raw SQL. Benefits: reduces boilerplate, prevents basic SQL injection, speeds up development, and makes code more readable. Trade-offs: generated SQL can be inefficient (N+1 queries, unnecessary columns), the abstraction can obscure what queries run under the hood, and complex queries often require dropping down to raw SQL."
+    },
+    {
+      "question": "What are SQL JOINs? Explain INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL OUTER JOIN.",
+      "hints": [
+        "INNER JOIN returns rows matching in both tables; LEFT JOIN returns all from left plus matched from right",
+        "FULL OUTER JOIN returns all rows from both tables, NULLs where no match"
+      ],
+      "answer": "INNER JOIN returns only rows where there is a match in both tables. LEFT JOIN (LEFT OUTER JOIN) returns all rows from the left table and matching rows from the right; non-matching right rows are NULL. RIGHT JOIN is the mirror: all rows from the right, NULLs for non-matching left. FULL OUTER JOIN returns all rows from both tables, with NULLs where there is no match on either side. Choose the type based on whether you need unmatched rows."
+    },
+    {
+      "question": "What is a SQL GROUP BY clause and when is it used with aggregate functions?",
+      "hints": [
+        "GROUP BY groups rows sharing a value into summary rows",
+        "Aggregate functions: COUNT, SUM, AVG, MIN, MAX applied per group"
+      ],
+      "answer": "GROUP BY groups rows that share the same value in specified columns into a single summary row, enabling aggregate functions to compute per-group statistics. For example, SELECT department, COUNT(*) FROM employees GROUP BY department counts employees per department. Every column in the SELECT list must either appear in GROUP BY or be inside an aggregate function. HAVING filters groups after aggregation (similar to WHERE for individual rows)."
+    },
+    {
+      "question": "What is a database view and when would you use one?",
+      "hints": [
+        "A view is a stored query that behaves like a virtual table",
+        "Views simplify complex queries, enforce security by exposing only selected columns"
+      ],
+      "answer": "A view is a named, stored SELECT query that acts as a virtual table — querying the view executes the underlying query. Benefits: simplify complex joins by giving them a reusable name, enforce security by exposing only certain columns or rows to specific users, and centralise query logic so changes propagate to all consumers. Views do not store data themselves (unless materialized); they are evaluated at query time."
+    },
+    {
+      "question": "What is the difference between hashing and encryption? Give use cases for each.",
+      "hints": [
+        "Hashing is one-way (passwords, checksums); encryption is two-way (data in transit, at rest)",
+        "Use bcrypt/Argon2 for passwords; AES for sensitive data you need to decrypt later"
+      ],
+      "answer": "Hashing is a one-way transformation that produces a fixed-length digest; the original data cannot be recovered from the hash. Use cases: password storage (bcrypt, Argon2), data integrity verification (SHA-256 checksums). Encryption is two-way: data is transformed with a key and can be decrypted with the correct key. Use cases: protecting data in transit (TLS), encrypting sensitive fields at rest (AES-256). Never use a plain hash for data you need to retrieve; never use encryption for passwords."
+    },
+    {
+      "question": "What is SSL/TLS? How does the TLS handshake establish a secure connection?",
+      "hints": [
+        "TLS encrypts data in transit between client and server using asymmetric + symmetric crypto",
+        "Handshake: negotiate cipher, exchange keys (asymmetric), derive session key (symmetric), verify certificate"
+      ],
+      "answer": "TLS (Transport Layer Security) encrypts communication between client and server. The handshake proceeds as: the client sends supported TLS versions and cipher suites; the server responds with its certificate (containing its public key); the client verifies the certificate against a trusted CA; they exchange key material to derive a symmetric session key (using ECDHE for forward secrecy); all subsequent data is encrypted with the faster symmetric key. This prevents eavesdropping and MITM attacks."
+    },
+    {
+      "question": "What is dependency injection? How does it differ from instantiating dependencies directly?",
+      "hints": [
+        "DI provides dependencies from outside rather than having the class create them",
+        "Benefits: easier testing (inject mocks), reduced coupling, adherence to Dependency Inversion Principle"
+      ],
+      "answer": "Dependency injection means providing a class's dependencies from outside (via constructor, method, or property injection) rather than letting the class instantiate them with 'new'. This decouples the class from its dependencies' concrete implementations. Benefits: in tests you can inject mocks or stubs instead of real services; swapping implementations requires no changes to the consuming class; promotes coding to interfaces. A DI container automates the wiring of dependencies at runtime."
+    },
+    {
+      "question": "What are environment variables and why should configuration be stored in them rather than in code?",
+      "hints": [
+        "Environment variables allow config to differ between environments without changing code",
+        "Secrets in code get committed to source control; env vars keep them out of the codebase"
+      ],
+      "answer": "Environment variables are key-value pairs provided to a process by the operating system or container runtime. Storing configuration (database URLs, API keys, feature flags) in environment variables rather than hardcoding them in source files follows the Twelve-Factor App principle: the same code runs in development, staging, and production with different configuration injected at runtime. This prevents secrets from being committed to version control and makes deployments more portable."
+    },
+    {
+      "question": "What is a webhook? How does it differ from polling an API?",
+      "hints": [
+        "Webhook: server pushes events to a registered URL when something happens",
+        "Polling: client repeatedly asks the server for updates on a schedule"
+      ],
+      "answer": "A webhook is an HTTP callback — a server sends a POST request to a pre-configured URL when an event occurs (e.g. payment completed, GitHub push). The receiving service must expose a public endpoint. Polling is the alternative: the client periodically calls the provider's API to check for new data. Webhooks are more efficient (no wasted requests when nothing changed) and lower latency. Polling is simpler when webhooks are unsupported or when you need to control the request rate."
+    },
+    {
+      "question": "What is Base64 encoding? When and why is it used?",
+      "hints": [
+        "Base64 encodes binary data to ASCII text using 64 printable characters",
+        "Used where binary data must be embedded in text-based protocols like HTTP, email, JSON"
+      ],
+      "answer": "Base64 encodes arbitrary binary data into a string using only 64 printable ASCII characters (A-Z, a-z, 0-9, +, /). It is not encryption — it is a lossless encoding that increases size by roughly 33%. Use cases: embedding images in HTML/CSS as data URIs, transmitting binary payloads inside JSON (which is text), encoding email attachments (MIME), and encoding credentials in HTTP Basic Authorization headers. Always decode before processing the underlying data."
+    },
+    {
+      "question": "What is the difference between TCP and UDP? When would you choose each?",
+      "hints": [
+        "TCP: reliable, ordered, connection-oriented; UDP: fast, connectionless, no delivery guarantee",
+        "TCP for HTTP, databases; UDP for video streaming, DNS, gaming"
+      ],
+      "answer": "TCP (Transmission Control Protocol) is connection-oriented and guarantees ordered, reliable delivery with error checking and retransmission of lost packets. The overhead makes it slightly slower. UDP (User Datagram Protocol) is connectionless — packets are sent without establishing a connection or confirming delivery, making it faster with lower latency but no reliability guarantee. Choose TCP for web APIs, databases, and file transfer where correctness matters. Choose UDP for real-time applications (video streaming, VoIP, online gaming, DNS) where speed trumps reliability."
+    },
+    {
+      "question": "What is a stored procedure in SQL? What are the advantages and disadvantages?",
+      "hints": [
+        "A stored procedure is precompiled SQL logic stored in the database and called by name",
+        "Advantage: reduced network round-trips; Disadvantage: logic is hard to version-control and test"
+      ],
+      "answer": "A stored procedure is a named, precompiled set of SQL statements stored in the database and executed by calling its name. Advantages: reduces network round-trips (multiple queries in one call), can be precompiled for faster execution, and encapsulates repeated logic server-side. Disadvantages: business logic in the database is harder to version-control, test, and deploy alongside application code; tightly couples the app to the database; and debugging is more difficult than application code."
+    },
+    {
+      "question": "What is the difference between synchronous and asynchronous code execution?",
+      "hints": [
+        "Synchronous: each operation waits for the previous to complete before starting",
+        "Asynchronous: operations can run concurrently; the caller is notified via callback, promise, or event"
+      ],
+      "answer": "Synchronous execution is sequential — each statement finishes before the next begins. If one operation blocks (e.g. a slow database query), the entire thread waits. Asynchronous execution allows a thread to initiate an operation and continue doing other work while waiting for the result; when the operation completes, a callback, promise, or event handler is invoked. Async is essential for I/O-bound work (network calls, file reads) to keep the application responsive under load."
+    },
+    {
+      "question": "What is a RESTful API? What principles make an API truly RESTful?",
+      "hints": [
+        "REST principles: stateless, uniform interface, resource-based URLs, self-descriptive messages",
+        "Each request must contain all information needed; server does not store client session state"
+      ],
+      "answer": "A RESTful API adheres to six principles defined by Roy Fielding: stateless (each request contains all needed context — no server-side sessions), uniform interface (consistent URL structure and HTTP verbs), resource-based URLs (/users/42 not /getUser?id=42), representations (JSON or XML returned), self-descriptive messages (Content-Type headers), and optionally hypermedia links (HATEOAS). Statelessness is the most important constraint as it enables horizontal scaling."
+    },
+    {
+      "question": "What is the difference between a process and a thread?",
+      "hints": [
+        "A process is an independent execution unit with its own memory space",
+        "Threads share memory within the same process; context-switching between threads is cheaper"
+      ],
+      "answer": "A process is an independent program in execution with its own isolated memory space, file handles, and OS resources. Threads are lighter units of execution that run inside a process and share the same memory space. Context-switching between threads is cheaper than between processes because less state needs to be saved. However, shared memory requires synchronisation (mutexes, locks) to avoid race conditions. Use multiple processes for isolation and resilience; use threads for concurrent tasks that need to share data efficiently."
+    },
+    {
+      "question": "What is an API (Application Programming Interface)? Explain the difference between a public API and a private API.",
+      "hints": [
+        "An API defines how software components communicate with each other",
+        "Public API: exposed to third-party developers; Private/internal API: used only within the organisation"
+      ],
+      "answer": "An API is a defined interface — a set of endpoints, methods, and data formats — through which one software system communicates with another. A public API is intentionally exposed to external third-party developers (e.g. GitHub API, Stripe API) and must be stable, versioned, and documented. A private (internal) API is accessible only within the organisation's systems, allowing teams to change it without notifying external consumers. Partner APIs are a middle ground shared with selected external parties."
+    },
+    {
+      "question": "What is pagination in APIs? Explain offset-based and cursor-based pagination.",
+      "hints": [
+        "Pagination limits the number of records returned per response to avoid overwhelming clients",
+        "Offset-based: LIMIT/OFFSET; Cursor-based: opaque token pointing to the last seen record"
+      ],
+      "answer": "Pagination returns data in chunks rather than all at once. Offset-based pagination uses LIMIT and OFFSET (page number × page size) — simple to implement but becomes slow on large datasets as the database must skip O(offset) rows, and results can shift if rows are inserted or deleted between pages. Cursor-based pagination uses an opaque cursor (typically the last seen ID or encoded row reference) as the starting point for the next page — stable and performant for large datasets, but does not support arbitrary page jumps."
+    },
+    {
+      "question": "What is the purpose of a .gitignore file?",
+      "hints": [
+        "Tells Git which files and directories to exclude from tracking",
+        "Common entries: node_modules/, .env, compiled binaries, IDE config files"
+      ],
+      "answer": "A .gitignore file tells Git which files and directories to exclude from version control. Listed patterns are not tracked, not staged, and do not appear in git status output. This prevents committing files that should not be in source control: build artifacts (dist/, target/), dependency directories (node_modules/, vendor/), environment-specific secrets (.env), IDE configuration files (.idea/, .vscode/), and OS metadata (.DS_Store). Each team member's sensitive local config stays out of the shared repository."
+    },
+    {
+      "question": "What is JSON and why is it commonly used for API communication?",
+      "hints": [
+        "JSON (JavaScript Object Notation) is a lightweight, human-readable text format for structured data",
+        "Natively supported by JavaScript; parsers exist in every language; simpler than XML"
+      ],
+      "answer": "JSON (JavaScript Object Notation) is a text-based data interchange format that uses key-value pairs, arrays, strings, numbers, booleans, and null. It is language-agnostic with native parsers in every major programming language. Compared to XML, JSON is more compact, easier to read, and maps directly to data structures in most languages. It is the dominant format for REST API payloads because it is lightweight, human-readable, and fast to parse."
+    },
+    {
+      "question": "What is the difference between GET and POST requests when submitting form data?",
+      "hints": [
+        "GET appends data in the URL query string; POST sends data in the request body",
+        "GET is bookmarkable and cached; POST should be used for sensitive or large data"
+      ],
+      "answer": "GET sends form data as URL query parameters (?key=value) — the data is visible in the URL, logged in server access logs, and cached by browsers. Suitable for search forms where the URL should be shareable and bookmarkable. POST sends form data in the HTTP request body — not visible in the URL, not cached, and not stored in browser history. POST should be used for login forms, file uploads, or any operation with side effects, and whenever data is sensitive or too large for a URL."
+    },
+    {
+      "question": "What is CORS (Cross-Origin Resource Sharing) and why does it exist?",
+      "hints": [
+        "Browsers block cross-origin requests by default (same-origin policy); CORS relaxes this via HTTP headers",
+        "The server must include Access-Control-Allow-Origin headers to permit cross-origin requests"
+      ],
+      "answer": "The browser's same-origin policy blocks web pages from making requests to a different origin (domain, protocol, or port) to prevent cross-site request attacks. CORS is a mechanism where the server includes specific HTTP headers (Access-Control-Allow-Origin, Access-Control-Allow-Methods) to tell the browser it trusts requests from specified origins. For non-simple requests (PUT, DELETE, custom headers), the browser first sends a preflight OPTIONS request; the server must respond with appropriate CORS headers for the actual request to proceed."
+    },
+    {
+      "question": "What is a CDN (Content Delivery Network) and when should you use one?",
+      "hints": [
+        "CDN caches static assets at edge nodes close to users, reducing latency",
+        "Use for static files (images, JS, CSS), video, and any globally distributed user base"
+      ],
+      "answer": "A CDN is a geographically distributed network of servers (edge nodes) that cache copies of static content close to end users. When a user requests a resource, the CDN serves it from the nearest edge node rather than the origin server, reducing latency and offloading traffic from the origin. Use a CDN for static assets (images, JavaScript, CSS), video streaming, and software downloads when you have a globally distributed user base. Dynamic content can also be accelerated via CDN routing optimizations."
+    },
+    {
+      "question": "What is the difference between a compiled language and an interpreted language?",
+      "hints": [
+        "Compiled: source code is translated to machine code before execution (C, Go, Rust)",
+        "Interpreted: source code is read and executed at runtime by an interpreter (Python, Ruby, PHP)"
+      ],
+      "answer": "A compiled language translates the entire source code into machine code (or bytecode) before execution; the resulting binary runs directly on the hardware or VM. Examples: C, Go, Rust. An interpreted language is read and executed line-by-line at runtime by an interpreter without a separate compilation step. Examples: Python, Ruby, PHP. Compiled code typically runs faster; interpreted code is more portable and faster to iterate on during development. Many modern languages (Java, C#, Python with PyPy) blend both approaches using JIT compilation."
+    },
+    {
+      "question": "What is the difference between a monolithic and a service-oriented application architecture?",
+      "hints": [
+        "Monolith: all components in one deployable unit; easier to develop initially but harder to scale independently",
+        "Service-oriented: functionality split into separate services that communicate over a network"
+      ],
+      "answer": "A monolithic application bundles all components — UI, business logic, and data access — into a single deployable unit. It is simpler to develop, test, and deploy initially, but as it grows it becomes harder to scale individual parts, and a bug can bring down the entire application. A service-oriented architecture splits functionality into separate services that communicate over a network (HTTP, message queues). Each service can be deployed, scaled, and updated independently, but introduces distributed systems complexity including network latency and inter-service contracts."
+    },
+    {
+      "question": "What is the purpose of a reverse proxy? How does it differ from a forward proxy?",
+      "hints": [
+        "Reverse proxy sits in front of servers, forwarding client requests to backend services (Nginx, HAProxy)",
+        "Forward proxy sits in front of clients, forwarding their requests to the internet (VPN, corporate proxy)"
+      ],
+      "answer": "A reverse proxy sits between clients and backend servers — it receives incoming requests and forwards them to the appropriate backend, then returns the response to the client. Clients interact with the proxy IP, not the backend directly. Use cases: load balancing, SSL termination, caching, request routing, and hiding backend topology (Nginx, HAProxy). A forward proxy sits in front of clients and forwards their requests to the internet on their behalf — used for anonymisation, content filtering, and corporate network controls. The key difference is direction: reverse proxies protect servers; forward proxies serve clients."
     }
   ],
   "middle": [
     {
       "question": "Explain the SOLID principles. Give a brief example of each.",
-      "hints": ["S: Single Responsibility; O: Open/Closed; L: Liskov Substitution; I: Interface Segregation; D: Dependency Inversion", "Focus on one principle you've applied in practice"],
+      "hints": [
+        "S: Single Responsibility; O: Open/Closed; L: Liskov Substitution; I: Interface Segregation; D: Dependency Inversion",
+        "Focus on one principle you've applied in practice"
+      ],
       "answer": "Single Responsibility — a class has one reason to change (UserRepository only handles DB access, not email sending). Open/Closed — open for extension, closed for modification (add new payment methods via new classes, not if/else). Liskov Substitution — subtypes must be substitutable for their base type. Interface Segregation — prefer many small interfaces over one fat one. Dependency Inversion — depend on abstractions, not concretions (inject an interface, not a concrete class)."
     },
     {
       "question": "Describe the Singleton, Factory, and Observer design patterns. When would you use each?",
-      "hints": ["Singleton: one instance (DB connection pool); Factory: decouple creation; Observer: event-driven updates", "Beware of Singleton overuse — it can introduce global state"],
+      "hints": [
+        "Singleton: one instance (DB connection pool); Factory: decouple creation; Observer: event-driven updates",
+        "Beware of Singleton overuse — it can introduce global state"
+      ],
       "answer": "Singleton ensures only one instance exists — used for shared resources like a DB connection pool or logger. Factory decouples object creation from usage, letting you instantiate subclasses based on runtime conditions without the caller knowing the concrete type. Observer (pub/sub) lets objects subscribe to events emitted by another object — used for event-driven architectures, UI updates, and notification systems."
     },
     {
       "question": "What are message queues? Give examples of systems that use them and explain why.",
-      "hints": ["RabbitMQ, Apache Kafka, AWS SQS", "Decouple producers from consumers, handle traffic spikes, enable async processing"],
+      "hints": [
+        "RabbitMQ, Apache Kafka, AWS SQS",
+        "Decouple producers from consumers, handle traffic spikes, enable async processing"
+      ],
       "answer": "Message queues (RabbitMQ, Kafka, SQS) decouple producers from consumers: producers publish messages without waiting for consumers to process them. This enables async processing, absorbs traffic spikes (queue buffers load), and improves resilience (consumers can be down temporarily and catch up). Kafka additionally provides ordered, replayable event streams useful for event sourcing and analytics pipelines."
     },
     {
       "question": "Explain common caching strategies: cache-aside, write-through, and write-behind. When would you use each?",
-      "hints": ["Cache-aside: app checks cache first, writes through on miss", "Write-through: every write goes to cache and DB simultaneously; Write-behind: write to cache, persist async"],
+      "hints": [
+        "Cache-aside: app checks cache first, writes through on miss",
+        "Write-through: every write goes to cache and DB simultaneously; Write-behind: write to cache, persist async"
+      ],
       "answer": "Cache-aside (lazy loading): the app reads cache first; on a miss it fetches from DB, populates cache, and returns. Simple and widely used. Write-through: every write goes to cache and DB simultaneously — data is always consistent but writes are slower. Write-behind (write-back): write to cache immediately and asynchronously persist to DB later — fastest writes but risk of data loss on crash."
     },
     {
       "question": "What is the N+1 query problem and how do you solve it?",
-      "hints": ["N+1 occurs when fetching N records triggers N additional queries for related data", "Solutions: eager loading (JOIN), batching, DataLoader pattern"],
+      "hints": [
+        "N+1 occurs when fetching N records triggers N additional queries for related data",
+        "Solutions: eager loading (JOIN), batching, DataLoader pattern"
+      ],
       "answer": "The N+1 problem occurs when code fetches a list of N records and then issues one extra query per record to load related data — resulting in N+1 database round-trips. Solutions: eager loading with JOIN (fetch all related data in one query), batch loading (group IDs and run one IN query), or the DataLoader pattern (used in GraphQL to batch and deduplicate within a request)."
     },
     {
       "question": "What are microservices? What are their advantages and disadvantages compared to a monolith?",
-      "hints": ["Advantages: independent deployability, scalability per service, technology diversity", "Disadvantages: distributed system complexity, network latency, data consistency challenges"],
+      "hints": [
+        "Advantages: independent deployability, scalability per service, technology diversity",
+        "Disadvantages: distributed system complexity, network latency, data consistency challenges"
+      ],
       "answer": "Microservices decompose an application into small, independently deployable services each owning its data. Advantages: services scale independently, teams deploy autonomously, and each service can use the best-fit technology. Disadvantages: distributed system complexity (network failures, latency), inter-service communication overhead, data consistency across service boundaries, and significantly more operational complexity than a monolith."
     },
     {
       "question": "What is database normalization? Explain 1NF, 2NF, and 3NF with examples.",
-      "hints": ["1NF: atomic columns; 2NF: no partial dependency on composite key; 3NF: no transitive dependency", "Normalization reduces redundancy; denormalization can improve read performance"],
+      "hints": [
+        "1NF: atomic columns; 2NF: no partial dependency on composite key; 3NF: no transitive dependency",
+        "Normalization reduces redundancy; denormalization can improve read performance"
+      ],
       "answer": "1NF: all column values are atomic (no arrays or repeating groups). 2NF: no non-key column depends on only part of a composite primary key. 3NF: no non-key column depends on another non-key column (no transitive dependencies). Normalization eliminates data redundancy and update anomalies; denormalization intentionally violates these rules to speed up read-heavy queries."
     },
     {
       "question": "What is JWT (JSON Web Token)? How does it work and what are its security considerations?",
-      "hints": ["JWT: header.payload.signature — the signature is verified server-side with a secret or public key", "Risks: storing sensitive data in payload (it is base64-encoded, not encrypted), algorithm confusion attacks"],
+      "hints": [
+        "JWT: header.payload.signature — the signature is verified server-side with a secret or public key",
+        "Risks: storing sensitive data in payload (it is base64-encoded, not encrypted), algorithm confusion attacks"
+      ],
       "answer": "JWT is a compact token with three base64url-encoded sections: header (algorithm), payload (claims), and signature. The server signs the header+payload; on subsequent requests the server verifies the signature without needing a session store. Security considerations: the payload is only encoded, not encrypted — never put sensitive data in it. Use RS256 or ES256 over HS256 in multi-service environments. Protect against algorithm confusion attacks by explicitly specifying the expected algorithm."
     },
     {
       "question": "How does database connection pooling work and why is it important?",
-      "hints": ["A pool maintains a set of reusable connections instead of opening a new one per request", "Reduces connection overhead; pool size must be tuned to match DB capacity"],
+      "hints": [
+        "A pool maintains a set of reusable connections instead of opening a new one per request",
+        "Reduces connection overhead; pool size must be tuned to match DB capacity"
+      ],
       "answer": "A connection pool pre-opens a set of database connections and reuses them across requests, instead of creating and tearing down a connection per query (which is expensive — TCP handshake, authentication, SSL negotiation). Applications borrow a connection from the pool, use it, and return it. Pool size must be tuned: too small causes queuing under load; too large overwhelms the database server."
+    },
+    {
+      "question": "What are the main use cases for Redis beyond simple key-value caching?",
+      "hints": [
+        "Redis supports rich data structures: sorted sets, lists, pub/sub, streams, Lua scripting",
+        "Use cases: rate limiting, session storage, leaderboards, distributed locks, pub/sub messaging"
+      ],
+      "answer": "Redis supports rich data structures enabling diverse use cases. Sorted sets power leaderboards with O(log n) rank queries. Lists implement queues and activity feeds. Pub/Sub enables lightweight real-time messaging. Atomic Lua scripts and SETNX implement distributed locks. TTL-backed keys handle session storage and rate-limiting counters. Redis Streams provide a persistent, consumer-group-aware event log. Its single-threaded model guarantees atomic operations without external locking."
+    },
+    {
+      "question": "What is Elasticsearch and how does it differ from a traditional relational database?",
+      "hints": [
+        "Elasticsearch is a distributed, inverted-index search engine built on Lucene",
+        "Optimized for full-text search and analytics; not suited for ACID transactions or complex relational queries"
+      ],
+      "answer": "Elasticsearch stores documents as JSON and indexes them using an inverted index — mapping every word to the documents containing it — enabling sub-second full-text search across millions of records. Unlike relational databases, it is optimised for search relevance scoring, faceted navigation, and log aggregation (the ELK stack). It lacks multi-document ACID transactions and complex joins. Use Elasticsearch for full-text search, log analysis, and autocomplete; keep the source of truth in a relational or document database."
+    },
+    {
+      "question": "What are database transaction isolation levels? Explain Read Uncommitted, Read Committed, Repeatable Read, and Serializable.",
+      "hints": [
+        "Higher isolation prevents more anomalies but reduces concurrency",
+        "Anomalies: dirty read, non-repeatable read, phantom read — each level prevents a subset"
+      ],
+      "answer": "Read Uncommitted allows dirty reads (seeing uncommitted changes from other transactions). Read Committed (default in most DBs) prevents dirty reads but allows non-repeatable reads (the same row read twice in a transaction can change). Repeatable Read prevents dirty and non-repeatable reads but allows phantom reads (new rows appearing in a range query). Serializable is the strictest — transactions execute as if serially, preventing all anomalies at the cost of throughput. Choose the lowest level that meets your consistency requirements."
+    },
+    {
+      "question": "What is idempotency? Why is it critical in API design and distributed systems?",
+      "hints": [
+        "An idempotent operation produces the same result regardless of how many times it is called",
+        "Critical for safe retries: clients can retry without duplicating side effects"
+      ],
+      "answer": "An idempotent operation can be performed multiple times and always produces the same result as a single execution. In APIs, GET, PUT, and DELETE should be idempotent. In distributed systems where network failures cause uncertainty (did the request arrive?), clients retry — if the operation is idempotent, retries are safe. Implement idempotency keys (client-supplied UUID per operation) on POST endpoints that create resources or trigger payments; the server stores the result and returns it on duplicate requests."
+    },
+    {
+      "question": "What is the difference between optimistic and pessimistic locking in databases?",
+      "hints": [
+        "Optimistic: no lock held; conflict detected at commit time via version check",
+        "Pessimistic: row is locked when read; other transactions must wait"
+      ],
+      "answer": "Pessimistic locking acquires a lock on a row when it is read (SELECT FOR UPDATE), blocking other transactions from modifying it until the lock is released. Safe in high-contention scenarios but reduces throughput. Optimistic locking reads the row without locking, updates it only if a version number or timestamp has not changed since the read (UPDATE ... WHERE version = ?), and retries on conflict. Optimistic locking is better for low-contention scenarios as it avoids lock overhead; pessimistic for high-contention writes where conflicts are frequent."
+    },
+    {
+      "question": "What are composite indexes, covering indexes, and partial indexes in SQL databases?",
+      "hints": [
+        "Composite: index on multiple columns; covering: index contains all columns a query needs",
+        "Partial: index with a WHERE clause — smaller and faster for filtered queries"
+      ],
+      "answer": "A composite index spans multiple columns and accelerates queries filtering or sorting on those columns in order (leftmost prefix rule). A covering index includes all columns referenced in a query's SELECT, WHERE, and ORDER BY clauses so the database can satisfy the query from the index alone without visiting the table (an 'index-only scan'). A partial index is built with a WHERE clause (e.g. WHERE deleted_at IS NULL) — smaller and faster than a full-table index for queries targeting that subset."
+    },
+    {
+      "question": "What are the key differences between GraphQL and REST? When would you choose GraphQL?",
+      "hints": [
+        "REST: multiple endpoints, fixed response shape; GraphQL: single endpoint, client specifies exact fields",
+        "GraphQL eliminates over-fetching and under-fetching; adds complexity with schema, resolvers, and tooling"
+      ],
+      "answer": "REST uses multiple URLs each representing a resource with a fixed response shape — clients may over-fetch (unused fields) or under-fetch (needing multiple requests). GraphQL exposes a single endpoint where clients declare exactly which fields they need in a typed schema, eliminating over/under-fetching and reducing round-trips. GraphQL is ideal for products with many different clients (web, mobile) with differing data needs. REST is simpler and better suited to simple CRUD APIs, caching is easier with HTTP semantics, and the ecosystem is more mature."
+    },
+    {
+      "question": "Explain the OAuth 2.0 authorization flows. When would you use the Authorization Code flow vs Client Credentials?",
+      "hints": [
+        "Authorization Code: user-facing apps where a human authorises access",
+        "Client Credentials: machine-to-machine, no user involved"
+      ],
+      "answer": "OAuth 2.0 defines several grant types. Authorization Code flow: the user is redirected to the authorization server, grants consent, and receives a code exchanged for tokens — used in web and mobile apps where a user authorises access. Use PKCE to prevent code interception in public clients. Client Credentials flow: the server-side application authenticates directly with its own client ID and secret to get a token — used for machine-to-machine (microservices) communication with no user involved. Implicit and Password grants are deprecated."
+    },
+    {
+      "question": "What is blue-green deployment? What are its advantages and risks?",
+      "hints": [
+        "Two identical environments: Blue is live; Green receives the new version; traffic switches instantly",
+        "Risk: doubled infrastructure cost; database schema changes must be backward-compatible"
+      ],
+      "answer": "Blue-green deployment maintains two identical production environments. The current live environment (blue) serves all traffic while the new version is deployed and validated on the green environment. Traffic is switched atomically via a load balancer or DNS update. Advantages: zero-downtime deployment, instant rollback (switch back to blue). Risks: requires double the infrastructure, and database schema changes must be backward-compatible with both versions simultaneously during the cutover window."
+    },
+    {
+      "question": "What is the OWASP Top 10? Name five common vulnerabilities and how to mitigate them.",
+      "hints": [
+        "OWASP Top 10: injection, broken auth, XSS, insecure design, security misconfiguration among others",
+        "Mitigation: parameterized queries, strong auth, input validation, least privilege, security headers"
+      ],
+      "answer": "The OWASP Top 10 lists the most critical web security risks. Injection (SQL, command): use parameterized queries. Broken Authentication: use MFA, bcrypt passwords, secure session management. XSS: encode output, use Content-Security-Policy headers. Insecure Direct Object Reference: always authorise access by user, not just by resource ID. Security Misconfiguration: disable default credentials, enable security headers, keep dependencies patched. Additional items include SSRF, vulnerable components, and cryptographic failures."
+    },
+    {
+      "question": "How do you prevent SQL injection? Explain parameterized queries and prepared statements.",
+      "hints": [
+        "Never interpolate user input directly into SQL strings",
+        "Prepared statements separate query structure from data; ORM query builders use parameterized queries by default"
+      ],
+      "answer": "SQL injection occurs when user input is concatenated directly into a SQL string, allowing attackers to alter the query's logic. Prevention: always use parameterized queries (prepared statements) which separate the SQL template from user-supplied values — the database driver ensures values are treated as data, never as SQL syntax. ORM query builders apply parameterization automatically. Also: validate and whitelist input types, apply least-privilege database users, and use WAFs as a secondary layer."
+    },
+    {
+      "question": "What is a race condition? Give an example and explain how to prevent it.",
+      "hints": [
+        "Race condition: outcome depends on non-deterministic ordering of concurrent operations",
+        "Prevention: atomic operations, database locks, optimistic concurrency, mutexes"
+      ],
+      "answer": "A race condition occurs when two or more concurrent operations interleave in an unexpected order, producing incorrect results. Example: two requests simultaneously read a user's balance (100), both calculate 100-10=90, and both write 90 — losing one deduction. Prevention: use database-level atomic operations (UPDATE balance = balance - 10 WHERE balance >= 10), pessimistic locking (SELECT FOR UPDATE), optimistic locking (version field), or application-level mutexes/semaphores for in-memory state."
+    },
+    {
+      "question": "What is eventual consistency and how does it differ from strong consistency?",
+      "hints": [
+        "Strong consistency: every read sees the latest write; eventual consistency: reads may return stale data temporarily",
+        "Eventual consistency enables higher availability and partition tolerance (CAP theorem)"
+      ],
+      "answer": "Strong consistency guarantees that any read after a write returns the updated value — all nodes agree at every moment. This requires coordination (locks or consensus) that reduces availability. Eventual consistency allows replicas to temporarily diverge and converge to the same state given no new writes — reads may return stale data briefly. Used in distributed databases like Cassandra and DynamoDB where availability and partition tolerance are prioritised. Applications must tolerate read-your-writes anomalies or use sessions with causal consistency."
+    },
+    {
+      "question": "What is the Outbox Pattern? When and why is it used?",
+      "hints": [
+        "Outbox Pattern: write the event to a local outbox table in the same DB transaction as the business operation",
+        "A separate process (relay) polls the outbox and publishes events to the message broker, ensuring at-least-once delivery"
+      ],
+      "answer": "The Outbox Pattern solves the dual-write problem: atomically persisting a business state change to the database and publishing an event to a message broker. Write the event to an outbox table within the same database transaction as the business operation — both succeed or both fail together. A separate relay process reads committed outbox records and publishes them to the broker, then marks them as sent. This guarantees at-least-once delivery without distributed transactions. Consumers must be idempotent to handle occasional duplicates."
+    },
+    {
+      "question": "What is the Saga Pattern for distributed transactions? Compare choreography and orchestration.",
+      "hints": [
+        "Saga: sequence of local transactions, each publishing events to trigger the next; compensating transactions on failure",
+        "Choreography: services react to events; Orchestration: a central coordinator directs each step"
+      ],
+      "answer": "A saga manages a long-running distributed transaction as a sequence of local transactions, each publishing an event. If a step fails, compensating transactions undo previous steps. Choreography: each service listens for events and reacts autonomously — no central coordinator, but harder to trace the overall flow. Orchestration: a saga orchestrator explicitly calls each service and handles failures and compensation — easier to visualise but adds a central dependency. Use sagas when ACID transactions across services are not possible."
+    },
+    {
+      "question": "What is the difference between horizontal and vertical scaling?",
+      "hints": [
+        "Vertical: add more CPU/RAM to a single server; Horizontal: add more servers and distribute load",
+        "Horizontal scaling is more resilient and has no hardware ceiling but requires stateless services"
+      ],
+      "answer": "Vertical scaling (scaling up) adds more resources (CPU, RAM, faster storage) to an existing server. Simple to implement but has a hardware ceiling and a single point of failure. Horizontal scaling (scaling out) adds more server instances and distributes load across them. More resilient, no theoretical ceiling, and cost-effective with commodity hardware. Requires services to be stateless (or use shared external state storage like Redis, a database) so any instance can handle any request."
+    },
+    {
+      "question": "What are common load balancing algorithms? Explain Round Robin, Least Connections, and Consistent Hashing.",
+      "hints": [
+        "Round Robin: requests distributed sequentially; Least Connections: sent to the least busy server",
+        "Consistent Hashing: the same key always routes to the same server, minimising redistribution when nodes change"
+      ],
+      "answer": "Round Robin distributes requests sequentially across servers — simple but ignores server load. Weighted Round Robin assigns more requests to higher-capacity servers. Least Connections sends each request to the server with the fewest active connections — better for variable request durations. IP Hash routes requests from the same client IP to the same server (session stickiness without shared session storage). Consistent Hashing maps keys to servers on a ring — adding or removing a server only remaps a fraction of keys, ideal for cache clusters."
+    },
+    {
+      "question": "What are the three pillars of observability? Explain logs, metrics, and traces.",
+      "hints": [
+        "Logs: discrete events; Metrics: aggregated numeric measurements over time; Traces: end-to-end request paths",
+        "Tools: ELK/Loki for logs, Prometheus/Grafana for metrics, Jaeger/Zipkin for traces"
+      ],
+      "answer": "Logs are structured or unstructured records of discrete events at a point in time — useful for debugging specific failures (ELK stack, Loki). Metrics are numeric measurements aggregated over time (request rate, error rate, latency percentiles, CPU usage) — alertable and visualised with Prometheus and Grafana. Distributed traces follow a single request across multiple services, each span recording timing and context — essential for diagnosing latency in microservices (Jaeger, Zipkin, OpenTelemetry). Together they form a complete observability stack."
+    },
+    {
+      "question": "What is an API Gateway and what responsibilities should it handle?",
+      "hints": [
+        "API Gateway sits in front of all services: routing, auth, rate limiting, SSL termination",
+        "Examples: AWS API Gateway, Kong, Nginx; offloads cross-cutting concerns from individual services"
+      ],
+      "answer": "An API gateway is the single entry point for all client requests to a microservices backend. Responsibilities: request routing to the correct downstream service, authentication and authorization enforcement, rate limiting and throttling, SSL/TLS termination, request and response transformation, logging and distributed tracing injection, and caching. By centralising these cross-cutting concerns, individual services remain simple. Examples: Kong, AWS API Gateway, Nginx with plugins, Envoy as an edge proxy."
+    },
+    {
+      "question": "What are the basics of Kubernetes? Explain Pods, Services, Deployments, and Ingress.",
+      "hints": [
+        "Pod: smallest deployable unit (one or more containers); Deployment: manages replicas and rolling updates",
+        "Service: stable DNS/IP for a set of pods; Ingress: HTTP routing from outside the cluster"
+      ],
+      "answer": "A Pod is the smallest deployable unit in Kubernetes, containing one or more tightly coupled containers sharing a network namespace and storage. A Deployment manages a desired number of identical Pod replicas, handles rolling updates and rollbacks. A Service provides a stable DNS name and virtual IP that load-balances traffic to matching Pods even as they are replaced. An Ingress (with an Ingress Controller like Nginx) routes external HTTP/HTTPS traffic to internal Services based on host/path rules."
+    },
+    {
+      "question": "What is the difference between synchronous and asynchronous messaging in distributed systems?",
+      "hints": [
+        "Synchronous: caller waits for a response (HTTP, gRPC); Async: message is sent to a broker and the caller continues",
+        "Async enables temporal decoupling but adds complexity: ordering, delivery guarantees, dead letter handling"
+      ],
+      "answer": "Synchronous messaging (HTTP request/response, gRPC) requires the caller to wait for the downstream service to respond — tight temporal coupling means a slow or unavailable downstream service blocks the caller. Asynchronous messaging uses a broker (Kafka, RabbitMQ): the producer publishes a message and continues without waiting; the consumer processes it independently. Async enables resilience (consumer can catch up after downtime) and throughput (producer is not gated by consumer speed), but adds complexity around ordering, exactly-once delivery, and failure handling."
+    },
+    {
+      "question": "What is hexagonal architecture (Ports and Adapters)? How does it improve testability?",
+      "hints": [
+        "Core domain knows nothing about frameworks, DBs, or external services — all communication via ports (interfaces)",
+        "Adapters implement ports: swap a real DB adapter for an in-memory one in tests"
+      ],
+      "answer": "Hexagonal architecture (Alistair Cockburn) places the domain logic at the centre and defines ports (interfaces) for all I/O — incoming (HTTP, CLI) and outgoing (database, message broker, third-party APIs). Adapters are concrete implementations of those ports. The domain core has zero dependencies on infrastructure. This improves testability dramatically: replace production adapters with in-memory or mock adapters in unit tests without spinning up a database or network. It also makes infrastructure swappable (change DB without touching domain logic)."
+    },
+    {
+      "question": "What are feature flags? How do they enable safe deployments and experimentation?",
+      "hints": [
+        "Feature flags decouple deployment from release: code is deployed but feature is off until enabled",
+        "Use cases: canary releases, A/B testing, kill switches for new features"
+      ],
+      "answer": "Feature flags (feature toggles) wrap code paths in a conditional check of a configuration value, decoupling code deployment from feature release. A feature can be deployed to production but kept off for all users, then gradually enabled for a percentage (canary), specific users (beta testers), or rolled back instantly if issues arise — without redeployment. This enables continuous deployment without exposing incomplete features. Long-lived flags add complexity; clean up flags once a feature is fully rolled out."
+    },
+    {
+      "question": "What are health check endpoints? How are they used in load balancers and orchestration platforms?",
+      "hints": [
+        "Liveness: is the process running? Readiness: is it ready to accept traffic?",
+        "Kubernetes uses liveness probes to restart unhealthy pods and readiness probes to withhold traffic"
+      ],
+      "answer": "A health check endpoint (typically GET /health or GET /ready) returns the service's operational status. Liveness checks determine whether the process should be restarted (stuck, deadlocked). Readiness checks determine whether the instance is ready to receive traffic (database connection established, cache warmed up). Load balancers use health checks to route traffic only to healthy instances. Kubernetes liveness probes restart failing pods; readiness probes remove unready pods from the Service endpoint list without restarting them."
+    },
+    {
+      "question": "What is a dead letter queue (DLQ)? When and why would you use one?",
+      "hints": [
+        "DLQ holds messages that could not be processed after the maximum retry attempts",
+        "Prevents poison pill messages from blocking the main queue; enables later inspection and reprocessing"
+      ],
+      "answer": "A dead letter queue is a separate queue where messages are moved after failing processing a configurable number of times (maximum retries exceeded, message TTL expired, or the message is malformed). Without a DLQ, a poison pill message (one that always fails) can block an entire queue or consume all retry budget. With a DLQ, failed messages are isolated for inspection, alerting, and manual or automated reprocessing. Most messaging systems (SQS, RabbitMQ, Azure Service Bus) support DLQs natively."
+    },
+    {
+      "question": "How do you use EXPLAIN to analyse a slow SQL query? What should you look for?",
+      "hints": [
+        "EXPLAIN shows the query execution plan: table scan vs index scan, join order, estimated row counts",
+        "Look for Seq Scan on large tables, nested loop joins with high row estimates, high cost nodes"
+      ],
+      "answer": "EXPLAIN (or EXPLAIN ANALYZE in PostgreSQL) outputs the query execution plan: which indexes are used, join algorithms, and estimated vs actual row counts. Key warning signs: Seq Scan on a large table (missing index), Nested Loop join with high row estimates (may be an N×M cross product), large Sort operations without an index, and discrepancies between estimated and actual rows (stale statistics — run ANALYZE). EXPLAIN ANALYZE actually executes the query and shows real timings to identify bottlenecks."
+    },
+    {
+      "question": "What are HTTP ETags and how do they enable conditional requests and caching?",
+      "hints": [
+        "ETag is a hash or version token representing the resource's current state",
+        "Clients send If-None-Match: <etag>; server returns 304 Not Modified if unchanged"
+      ],
+      "answer": "An ETag (Entity Tag) is an opaque identifier (hash of content or version number) that a server includes in a response header to represent the current version of a resource. On subsequent requests, the client sends an If-None-Match header with the stored ETag. If the resource has not changed, the server returns 304 Not Modified with no body, saving bandwidth. If it has changed, the server returns 200 with the new content and a new ETag. ETags also enable optimistic concurrency via the If-Match header for updates."
+    },
+    {
+      "question": "What is content negotiation in HTTP? How does it work?",
+      "hints": [
+        "Client advertises acceptable formats via Accept header; server responds with Content-Type matching one",
+        "Enables the same URL to serve JSON, XML, or HTML depending on client preference"
+      ],
+      "answer": "Content negotiation allows the same URL to serve different representations of a resource depending on client capabilities. The client sends an Accept header listing acceptable media types with quality weights (Accept: application/json, application/xml;q=0.9). The server selects the best match, responds with that format, and includes a Content-Type header confirming the choice. If no acceptable format can be served, the server returns 406 Not Acceptable. Similarly, Accept-Language and Accept-Encoding negotiate language and compression."
+    },
+    {
+      "question": "What is database replication? Explain primary-replica replication and its benefits and limitations.",
+      "hints": [
+        "Primary handles writes; replicas receive changes asynchronously and serve reads",
+        "Limitations: replication lag means replicas may serve stale data"
+      ],
+      "answer": "Database replication copies data from a primary (write) node to one or more replica (read) nodes. In asynchronous primary-replica replication (the most common setup), writes go to the primary, and replicas receive and apply the binary log with a small lag. Benefits: read queries are distributed across replicas, reducing primary load; replicas can serve as hot standbys for failover. Limitations: replication lag means replicas may return stale data immediately after a write — applications that read their own writes must route to the primary or wait for replication to catch up."
+    },
+    {
+      "question": "What is an event-driven architecture? How does it differ from a request-driven architecture?",
+      "hints": [
+        "Event-driven: producers emit events; consumers react asynchronously",
+        "Request-driven: caller waits for a synchronous response; event-driven decouples producers from consumers in time"
+      ],
+      "answer": "In a request-driven architecture, a caller sends a request and blocks waiting for a synchronous response — tight coupling. Event-driven architecture has producers publish events (facts that something happened) to a broker; any number of consumers subscribe and react independently and asynchronously. This temporal and spatial decoupling enables resilience (consumers can be offline), fanout (multiple consumers react to one event), and auditability (event log). Downsides: eventual consistency, harder debugging, and more complex error handling."
+    },
+    {
+      "question": "What is two-phase commit (2PC) and what are its limitations at the application level?",
+      "hints": [
+        "2PC coordinates a distributed transaction across multiple resources in Prepare and Commit phases",
+        "Limitations: blocking, single coordinator failure leaves participants locked"
+      ],
+      "answer": "Two-phase commit coordinates a transaction across multiple participants. In Phase 1 (Prepare), the coordinator asks all participants to lock resources and confirm they can commit. In Phase 2 (Commit), if all agreed, the coordinator sends Commit; if any voted No, it sends Abort. Limitations: the coordinator is a single point of failure — if it crashes after Prepare, participants hold locks indefinitely (blocking protocol). Network partitions cause uncertainty. In practice, XA transactions with 2PC are avoided in high-throughput systems; saga patterns are preferred."
+    },
+    {
+      "question": "How would you implement pagination and sorting on a large dataset efficiently?",
+      "hints": [
+        "Offset-based pagination slows down on deep pages; prefer keyset/cursor pagination for large datasets",
+        "Add composite indexes on sort columns plus the primary key to support keyset pagination"
+      ],
+      "answer": "For large datasets, avoid OFFSET-based pagination — the database must skip rows even for deep pages, O(offset) work. Use keyset (cursor) pagination: record the last seen value of the sort column(s) and primary key, then query WHERE (sort_col, id) > (last_sort_val, last_id) ORDER BY sort_col, id LIMIT N. This is O(log n) with a composite index on (sort_col, id). For sorting, ensure indexes match the ORDER BY clause direction. Expose a cursor (opaque token encoding the last seen position) in the API response rather than a page number."
+    },
+    {
+      "question": "What is a circuit breaker combined with a retry strategy? How do you implement exponential backoff?",
+      "hints": [
+        "Retries with exponential backoff space out retry attempts to avoid thundering herd",
+        "Circuit breaker prevents retrying when the service is clearly down; combine both for resilient clients"
+      ],
+      "answer": "Exponential backoff retries a failed operation with increasing delays (e.g. 100ms, 200ms, 400ms, 800ms) plus random jitter to prevent synchronized retry storms (thundering herd). Combine with a maximum retry count and total timeout. A circuit breaker tracks consecutive failures; when a threshold is reached it opens (fast-fail for a timeout period) preventing retries from piling up on an unavailable service. After the timeout, a single probe is allowed — if it succeeds the circuit closes. Implement both patterns together for robust inter-service communication."
+    },
+    {
+      "question": "What is the Strangler Fig pattern? When would you apply it to a legacy system?",
+      "hints": [
+        "Gradually replace a legacy monolith by routing specific functionality to new services while the old system still runs",
+        "Named after the strangler fig tree that grows around and eventually replaces its host"
+      ],
+      "answer": "The Strangler Fig pattern incrementally replaces a legacy system by building new functionality as separate services and routing new requests to them, while the legacy system continues to serve the rest. A facade (reverse proxy or API gateway) in front of both systems routes traffic. Over time more and more routes are strangled away from the legacy system until it can be decommissioned. This avoids the risk of a big-bang rewrite and delivers value incrementally. Apply it when the legacy system is too risky to replace all at once but too costly to maintain indefinitely."
+    },
+    {
+      "question": "What is the difference between a message broker and an event streaming platform? Compare RabbitMQ and Kafka.",
+      "hints": [
+        "RabbitMQ: traditional message broker, push-based, messages deleted after acknowledgement",
+        "Kafka: distributed log, pull-based, messages retained for a configurable period and replayable"
+      ],
+      "answer": "RabbitMQ is a traditional message broker: producers publish messages to exchanges, consumers subscribe to queues, and messages are deleted after acknowledgement. Suited for task queues and RPC patterns where each message is consumed once and ordering within a queue is sufficient. Kafka is a distributed, append-only log: messages (events) are retained for a configurable retention period and can be replayed by any consumer group from any offset. Suited for event streaming, event sourcing, CDC pipelines, and audit logs where multiple consumers independently replay the same stream."
+    },
+    {
+      "question": "What is distributed tracing and how does context propagation work across services?",
+      "hints": [
+        "A trace represents an end-to-end request; each service adds a span with timing and metadata",
+        "Trace and span IDs are propagated via HTTP headers (W3C traceparent, B3) to correlate spans across services"
+      ],
+      "answer": "Distributed tracing tracks a request as it traverses multiple services. Each service creates a span (a unit of work with start time, duration, and metadata) and links it to the parent span via a shared trace ID. Trace and span IDs are propagated between services in HTTP headers following W3C Trace Context (traceparent) or B3 format. An aggregation backend (Jaeger, Zipkin, Tempo) collects spans and assembles the full trace tree, showing which service or query caused latency. OpenTelemetry provides vendor-neutral instrumentation libraries and collector infrastructure."
+    },
+    {
+      "question": "How do you implement API authentication using API keys? What are best practices for issuing and validating them?",
+      "hints": [
+        "Generate cryptographically random keys; store only a hash in the database, not the plain key",
+        "Scope keys by permission, enforce rate limits per key, and allow revocation without redeploying"
+      ],
+      "answer": "Generate API keys using a cryptographically secure random generator (at least 32 bytes, base64url encoded). Store only a hash (SHA-256) of the key in the database — the raw key is shown to the user once at creation. On each request, hash the incoming key and compare to the stored hash. Scope keys to specific permissions (read-only, write). Rate-limit per key to prevent abuse. Log usage (not the key itself) for auditing. Provide a revocation endpoint. Prefix keys with a recognisable string (e.g. sk_live_) so secret scanners can detect accidental commits."
+    },
+    {
+      "question": "What is query caching and what are the risks of caching database query results?",
+      "hints": [
+        "Cache SELECT results in Redis with a TTL to reduce database load on read-heavy queries",
+        "Risk: stale data served after writes; cache stampede when TTL expires under high traffic"
+      ],
+      "answer": "Query caching stores the result of expensive or frequently executed SELECT queries in a fast in-memory store (Redis, Memcached) with a TTL, returning cached results on subsequent calls without hitting the database. Risks: stale data is served between writes and cache expiry — the TTL must balance freshness and database load. Cache stampede (thundering herd) occurs when a popular cache entry expires and many concurrent requests simultaneously hit the database; mitigate with probabilistic early expiry, mutex locking, or stale-while-revalidate. Invalidate proactively on writes when data freshness is critical."
+    },
+    {
+      "question": "What is gRPC? How does it compare to REST, and when would you choose it?",
+      "hints": [
+        "gRPC uses HTTP/2 and Protocol Buffers (binary serialisation) for efficient, strongly typed inter-service communication",
+        "Advantages: lower latency, streaming, generated client code; Disadvantage: less human-readable, browser support limited"
+      ],
+      "answer": "gRPC is a high-performance RPC framework developed by Google that uses HTTP/2 for transport and Protocol Buffers for serialisation. It generates strongly typed client and server stubs from a .proto schema. Compared to REST/JSON: gRPC is faster (binary encoding, multiplexed HTTP/2 streams), supports server streaming, client streaming, and bidirectional streaming, and enforces a strict contract via the schema. Choose gRPC for internal microservice communication where performance and type safety matter. Choose REST for public APIs where human readability, browser compatibility, and ecosystem breadth are priorities."
+    },
+    {
+      "question": "What is the difference between a hard delete and a soft delete in a database? When would you choose each?",
+      "hints": [
+        "Hard delete: row is physically removed; Soft delete: a deleted_at timestamp is set and the row is excluded from queries",
+        "Soft delete enables audit trails and recovery; but requires care to exclude deleted rows from all queries and indexes"
+      ],
+      "answer": "A hard delete physically removes the row from the database — it cannot be recovered except from a backup. A soft delete marks a row as deleted (commonly with a deleted_at timestamp or is_deleted flag) while leaving it in the table. Active queries must filter out soft-deleted rows. Choose soft delete when you need an audit trail, allow undo/recovery, or have foreign key relationships that would require complex cascades. Downsides: the table grows indefinitely, all queries need the exclusion filter (a partial index on deleted_at IS NULL helps), and unique constraints must account for soft-deleted records."
+    },
+    {
+      "question": "What is HATEOAS and why is it considered the highest level of REST maturity?",
+      "hints": [
+        "HATEOAS: Hypermedia As The Engine Of Application State — responses include links to related actions",
+        "Richardson Maturity Model level 3; clients discover API capabilities dynamically from links, not hardcoded URLs"
+      ],
+      "answer": "HATEOAS (Hypermedia As The Engine Of Application State) is the principle that REST API responses include hyperlinks describing available actions and related resources. For example, a GET /orders/42 response includes links for 'cancel', 'pay', and 'shipment'. Clients navigate the API by following links rather than constructing URLs from out-of-band documentation. This is Level 3 of the Richardson Maturity Model — the highest degree of REST compliance. Benefits: clients are loosely coupled to the server's URL structure; the API is self-discoverable. In practice, few public APIs implement full HATEOAS due to increased payload size and client complexity."
     }
   ],
   "senior": [
     {
       "question": "Explain the CAP theorem. Give real-world examples of systems that choose CP vs AP.",
-      "hints": ["You can only guarantee two of: Consistency, Availability, Partition Tolerance", "CP: HBase, Zookeeper; AP: Cassandra, DynamoDB (eventual consistency)"],
+      "hints": [
+        "You can only guarantee two of: Consistency, Availability, Partition Tolerance",
+        "CP: HBase, Zookeeper; AP: Cassandra, DynamoDB (eventual consistency)"
+      ],
       "answer": "CAP states that a distributed system can guarantee at most two of: Consistency (every read sees the latest write), Availability (every request gets a non-error response), and Partition Tolerance (the system continues despite network partitions). Since partitions are unavoidable, the real choice is CP vs AP. CP (HBase, Zookeeper): returns an error rather than stale data during a partition. AP (Cassandra, DynamoDB): returns stale data but stays available, converging later via eventual consistency."
     },
     {
       "question": "What is Event Sourcing and how does it differ from traditional CRUD? What is CQRS?",
-      "hints": ["Event Sourcing: store all changes as immutable events; current state is derived by replaying events", "CQRS: separate read and write models for scalability and clarity"],
+      "hints": [
+        "Event Sourcing: store all changes as immutable events; current state is derived by replaying events",
+        "CQRS: separate read and write models for scalability and clarity"
+      ],
       "answer": "Traditional CRUD overwrites current state; Event Sourcing stores every state change as an immutable, append-only event. Current state is derived by replaying the event log. Benefits: full audit trail, time-travel debugging, and projections. CQRS (Command Query Responsibility Segregation) separates write operations (commands that produce events) from read operations (queries against optimised read models/projections), enabling each side to scale and be optimised independently."
     },
     {
       "question": "What are the main challenges of building distributed systems and how do you address them?",
-      "hints": ["Partial failures, network latency, clock skew, split-brain scenarios", "Patterns: circuit breaker, sagas, idempotent operations, distributed tracing"],
+      "hints": [
+        "Partial failures, network latency, clock skew, split-brain scenarios",
+        "Patterns: circuit breaker, sagas, idempotent operations, distributed tracing"
+      ],
       "answer": "Distributed systems face: partial failures (one service fails while others run), network latency and unreliability, clock skew making event ordering unreliable, and split-brain scenarios. Address with: circuit breakers to stop cascading failures, saga pattern for distributed transactions, idempotent operations so retries are safe, distributed tracing (OpenTelemetry) for observability, and consensus algorithms (Raft, Paxos) for leader election."
     },
     {
       "question": "What is database sharding? Describe different sharding strategies and their trade-offs.",
-      "hints": ["Sharding splits data horizontally across multiple DB instances", "Range-based, hash-based, directory-based; trade-offs: cross-shard queries, rebalancing"],
+      "hints": [
+        "Sharding splits data horizontally across multiple DB instances",
+        "Range-based, hash-based, directory-based; trade-offs: cross-shard queries, rebalancing"
+      ],
       "answer": "Sharding horizontally partitions data across multiple database instances, each holding a subset. Range-based: partition by value ranges — simple but prone to hot spots. Hash-based: apply a hash to the shard key for uniform distribution — cross-shard range queries are expensive. Directory-based: a lookup service maps keys to shards — flexible but the directory is a potential bottleneck. All strategies complicate cross-shard queries and rebalancing when adding new shards."
     },
     {
       "question": "What is a circuit breaker pattern and why is it critical in microservice architectures?",
-      "hints": ["Opens the circuit after repeated failures to stop cascading failure propagation", "States: Closed, Open, Half-Open; implemented with libraries like Resilience4j, Polly"],
+      "hints": [
+        "Opens the circuit after repeated failures to stop cascading failure propagation",
+        "States: Closed, Open, Half-Open; implemented with libraries like Resilience4j, Polly"
+      ],
       "answer": "The circuit breaker wraps calls to an external service and tracks failure rates. In the Closed state it passes calls through. After a threshold of failures it Opens, immediately returning errors without calling the failing service — preventing resource exhaustion and cascading failures. After a timeout it moves to Half-Open, allowing a probe request through; success closes it, failure reopens it. Implemented via Resilience4j (JVM) or Polly (.NET)."
     },
     {
       "question": "What is Domain-Driven Design (DDD)? Explain Bounded Contexts, Aggregates, and Domain Events.",
-      "hints": ["Bounded Context: explicit boundary for a model; Aggregate: cluster of domain objects with one root", "Domain Events: facts that have occurred, used for decoupling and event sourcing"],
+      "hints": [
+        "Bounded Context: explicit boundary for a model; Aggregate: cluster of domain objects with one root",
+        "Domain Events: facts that have occurred, used for decoupling and event sourcing"
+      ],
       "answer": "DDD aligns software structure with business domain concepts. Bounded Context: an explicit boundary within which a domain model is consistent — 'Order' means different things in Billing vs Shipping. Aggregate: a cluster of domain objects treated as a single unit with one root entity enforcing invariants (e.g. Order + OrderLines). Domain Events: immutable facts that something happened ('OrderPlaced') used to decouple bounded contexts and enable event sourcing."
     },
     {
       "question": "How would you design a rate-limiting system capable of handling 100,000 requests per second?",
-      "hints": ["Token bucket or sliding window algorithm; store counters in Redis", "Distribute across multiple nodes with consistent hashing; handle clock synchronization"],
+      "hints": [
+        "Token bucket or sliding window algorithm; store counters in Redis",
+        "Distribute across multiple nodes with consistent hashing; handle clock synchronization"
+      ],
       "answer": "Use a sliding window counter or token bucket algorithm. Store counters in Redis with TTL — Redis single-threaded operations avoid race conditions and handle ~100k ops/sec per node. For higher throughput, shard counters via consistent hashing across a Redis cluster. Place rate-limiting logic in an API gateway or middleware layer to apply before hitting application servers. Handle clock skew between nodes with NTP and accept a small margin of error."
     },
     {
       "question": "What is a service mesh and what problems does it solve in a microservices architecture?",
-      "hints": ["Service mesh (Istio, Linkerd) handles inter-service communication: mTLS, load balancing, retries, observability", "Removes cross-cutting concerns from application code to the infrastructure layer"],
+      "hints": [
+        "Service mesh (Istio, Linkerd) handles inter-service communication: mTLS, load balancing, retries, observability",
+        "Removes cross-cutting concerns from application code to the infrastructure layer"
+      ],
       "answer": "A service mesh (Istio, Linkerd) injects a sidecar proxy (Envoy) alongside each service to handle all inter-service communication. It provides: mutual TLS for zero-trust encryption, automatic retries and circuit breaking, load balancing, distributed tracing, and traffic shaping (canary deployments, A/B tests). Cross-cutting concerns move from application code to the infrastructure layer, letting developers focus on business logic."
     },
     {
       "question": "How would you implement a globally consistent distributed ID generator without a single point of failure?",
-      "hints": ["Options: Twitter Snowflake (timestamp + machine ID + sequence), UUIDv7, database sequences with coordination", "Consider monotonicity, uniqueness guarantees, and throughput requirements"],
+      "hints": [
+        "Options: Twitter Snowflake (timestamp + machine ID + sequence), UUIDv7, database sequences with coordination",
+        "Consider monotonicity, uniqueness guarantees, and throughput requirements"
+      ],
       "answer": "Twitter Snowflake: a 64-bit integer composed of a 41-bit millisecond timestamp, 10-bit machine/datacenter ID, and 12-bit sequence number. Each node generates IDs independently with no coordination — no single point of failure, ~4M IDs/second per node. UUIDv7 is a standards-based alternative using a time-ordered UUID. Avoid database auto-increment for distributed systems as it requires centralised coordination and becomes a bottleneck."
+    },
+    {
+      "question": "What is consistent hashing? Why is it preferred over simple modulo hashing for distributed caches and storage?",
+      "hints": [
+        "Consistent hashing places nodes and keys on a ring; only adjacent keys are remapped when a node joins or leaves",
+        "Modulo hashing remaps nearly all keys when the number of nodes changes, causing a cache stampede"
+      ],
+      "answer": "Consistent hashing maps both nodes and keys to positions on a virtual ring using the same hash function. A key is assigned to the first node encountered clockwise from its position. When a node is added or removed, only the keys between the new node and its predecessor are remapped — roughly 1/N of all keys. Simple modulo hashing (key % N) remaps almost all keys when N changes, invalidating most cache entries simultaneously. Consistent hashing is used in Redis Cluster, Cassandra, and CDN edge routing."
+    },
+    {
+      "question": "What is the two-phase commit protocol? How do sagas differ and why are sagas preferred for long-lived transactions?",
+      "hints": [
+        "2PC: coordinator collects votes (prepare), then issues global commit or abort — blocking if coordinator crashes",
+        "Sagas decompose into local transactions with compensating actions — no global lock held across services"
+      ],
+      "answer": "Two-phase commit acquires locks on all participants during the prepare phase and releases them only after a global commit or abort. If the coordinator crashes between phases, participants hold locks indefinitely — a blocking protocol that reduces availability. Sagas decompose a long-lived transaction into a sequence of local transactions; each step publishes an event triggering the next. On failure, compensating transactions semantically undo previous steps. Sagas hold no cross-service locks and tolerate participant unavailability, making them far more suitable for microservices."
+    },
+    {
+      "question": "How do you achieve zero-downtime database schema migrations in a continuously deployed system?",
+      "hints": [
+        "Expand-contract pattern: add the new column/table first (backward-compatible), migrate data, then remove the old structure",
+        "Never drop or rename a column in the same migration that the new code requires"
+      ],
+      "answer": "The expand-contract (parallel change) pattern applies migrations in phases. Expand: add new columns or tables without removing old ones — both old and new code can run simultaneously. Migrate: backfill data and update application code to write to both old and new structures. Contract: once all instances run the new code, remove the old column in a separate migration. Never rename or drop a column while old code is still deployed. Feature flags and rolling deployments extend the compatibility window. Use tools like Flyway or Liquibase to track migration state."
+    },
+    {
+      "question": "How would you design a URL shortener capable of handling billions of URLs?",
+      "hints": [
+        "Base62 encode a hash or auto-increment ID; store long URL→short code in a key-value store",
+        "Cache hot redirects in Redis; use consistent hashing for horizontal scaling of the redirect service"
+      ],
+      "answer": "Generate a 7-character base62 code (62^7 ≈ 3.5 trillion combinations) from a hash of the long URL or a global counter. Store mappings in a key-value store (Cassandra or DynamoDB) with the short code as key. Cache the hottest redirects in Redis (Pareto distribution means ~20% of URLs drive 80% of traffic). The redirect service is stateless — horizontally scalable behind a load balancer. For custom aliases, store them in the same table with a uniqueness constraint. Partition by short code hash for write distribution."
+    },
+    {
+      "question": "How would you design a scalable notification service that delivers email, SMS, and push notifications?",
+      "hints": [
+        "Decouple notification dispatch from business events via a message queue; one consumer per channel",
+        "Idempotency keys prevent duplicate sends on retries; store notification state and delivery status"
+      ],
+      "answer": "A notification service receives events from upstream services via a message queue. A notification orchestrator reads events, applies user preferences and templates, and routes to channel-specific worker queues (email, SMS, push). Each worker is independently scalable. Use idempotency keys (event ID + channel) to prevent duplicates on retry. Store each notification record with status (pending, sent, failed) to support auditing and retries. Rate-limit outbound sends per provider (SES, Twilio, FCM) to respect their quotas. Use DLQs for permanently failing messages."
+    },
+    {
+      "question": "What is the Write-Ahead Log (WAL) in databases? How is it used for durability and replication?",
+      "hints": [
+        "WAL records every change before applying it to data files — ensures crash recovery",
+        "PostgreSQL streaming replication ships WAL segments to standby servers"
+      ],
+      "answer": "The Write-Ahead Log is an append-only file where all changes are recorded before they are applied to the actual data files. On crash recovery, the database replays the WAL to reach a consistent state — this is how ACID durability is guaranteed without fsync-ing every data page. In PostgreSQL, streaming replication ships WAL segments to standby servers in real time, which apply them to maintain an up-to-date replica. Logical replication decodes WAL records into logical change events, enabling cross-version replication and CDC pipelines (Debezium)."
+    },
+    {
+      "question": "What is a Bloom filter? Give a practical use case in a backend system.",
+      "hints": [
+        "Bloom filter: space-efficient probabilistic set — can report false positives but never false negatives",
+        "Use case: check if a username exists before querying the database; cache negative lookups"
+      ],
+      "answer": "A Bloom filter is a space-efficient probabilistic data structure that tests set membership. It can answer 'definitely not in set' or 'possibly in set' (false positives are possible; false negatives are not). Practical use cases: pre-filtering database lookups (check if a user ID has ever been seen before hitting the DB — if the filter says no, skip the query), reducing disk reads in LSM-tree storage engines (Cassandra, RocksDB use Bloom filters per SSTable), and detecting duplicate events in a stream. The false-positive rate is configurable by tuning filter size."
+    },
+    {
+      "question": "How would you design an idempotent payment API to prevent double charges?",
+      "hints": [
+        "Client generates a unique idempotency key per payment attempt; server stores result keyed by it",
+        "Return the stored result for duplicate requests without re-executing the payment"
+      ],
+      "answer": "The client generates a UUID idempotency key for each payment intent and sends it in the request header (Idempotency-Key). The server first checks a durable store (Redis or DB) for an existing result under that key. If found, return the stored response without reprocessing. If not found, execute the payment atomically: record the in-progress state, process with the payment provider, then store the final result. Use database unique constraints on the idempotency key to prevent race conditions when two concurrent requests arrive with the same key. Expire keys after 24 hours."
+    },
+    {
+      "question": "What are the strategies for multi-tenancy isolation in a SaaS application?",
+      "hints": [
+        "Three models: separate databases, separate schemas, shared tables with tenant_id column",
+        "Trade-offs: isolation vs resource efficiency vs operational complexity"
+      ],
+      "answer": "Separate databases per tenant gives the strongest isolation — data cannot leak between tenants, backups and migrations are independent, but operational overhead scales with tenant count. Schema-per-tenant within one database reduces infrastructure cost while still providing schema-level isolation and easy per-tenant restores, but schema proliferation complicates migrations. Shared tables with a tenant_id column (row-level isolation) is most resource-efficient and operationally simple, but requires strict application-level enforcement of tenant scoping on every query and risks cross-tenant data exposure in bugs."
+    },
+    {
+      "question": "How do you solve the GraphQL N+1 problem at scale?",
+      "hints": [
+        "DataLoader pattern: batch and deduplicate resolver calls within a single request",
+        "At scale: persistent query caching, query complexity limits, query depth limits, APQ"
+      ],
+      "answer": "In GraphQL each resolver fetches its own data independently, creating N+1 queries when resolving list fields. The DataLoader pattern (Facebook) collects all field resolver calls within a single request tick, deduplicates IDs, and issues a single batched query (SELECT * FROM users WHERE id IN (...)). At scale: use Automatic Persisted Queries (APQ) to cache query documents; enforce query complexity and depth limits to prevent expensive introspective queries; use response caching keyed by query + variables; consider schema stitching or Federation to push batch resolution to specialised services."
+    },
+    {
+      "question": "What is a hot partition problem in distributed databases? How do you mitigate it?",
+      "hints": [
+        "Hot partition: one shard receives disproportionately more traffic than others (e.g. celebrity user)",
+        "Mitigations: key salting, read replicas per partition, scatter-gather, adaptive sharding"
+      ],
+      "answer": "A hot partition (hot spot) occurs when a disproportionate fraction of reads or writes lands on a single shard — usually because the shard key is skewed (e.g. a celebrity account ID, a popular product, or a time-based key where all writes go to 'today'). Mitigations: add a random salt suffix to the key to spread writes across multiple logical partitions and use scatter-gather reads to collect results; add read replicas for the hot shard; choose a higher-cardinality shard key; use write buffering or local aggregation before flushing; or use adaptive sharding that detects and splits hot partitions automatically."
+    },
+    {
+      "question": "Explain the difference between pub/sub, message queue, and topic-based messaging. When would you use each?",
+      "hints": [
+        "Queue: one consumer gets each message (work queue); pub/sub: all subscribers receive every message",
+        "Topic in Kafka: partitioned, ordered log enabling both patterns depending on consumer group setup"
+      ],
+      "answer": "A message queue delivers each message to exactly one consumer (competing consumers pattern) — used for task distribution where each job should be processed once (job queues, email sending). Pub/Sub delivers each message to all subscribers independently — used for fanout (notifications broadcast to multiple services reacting to the same event). Kafka topics combine both: within a consumer group each partition is consumed by one member (queue semantics); across consumer groups all groups receive every message (pub/sub semantics). The choice depends on whether multiple independent consumers need the same message."
+    },
+    {
+      "question": "What are SLOs, SLIs, and SLAs? How do error budgets work?",
+      "hints": [
+        "SLI: measured metric (latency p99, availability); SLO: internal target; SLA: contractual commitment with penalties",
+        "Error budget = 100% - SLO; when budget is exhausted, prioritise reliability over features"
+      ],
+      "answer": "SLI (Service Level Indicator) is a quantitative metric measuring service behaviour — e.g. 99th-percentile latency, availability (successful requests / total requests). SLO (Service Level Objective) is an internal engineering target for an SLI — e.g. p99 latency < 200ms over 30 days. SLA (Service Level Agreement) is a contractual commitment to customers with financial penalties for breach. Error budget is 1 - SLO: if the SLO is 99.9% availability, the error budget is 0.1% downtime per month. When the error budget is consumed, new feature development pauses to focus on reliability until the budget recovers."
+    },
+    {
+      "question": "What are the Twelve-Factor App principles and why are they important for cloud-native services?",
+      "hints": [
+        "Codebase, Dependencies, Config, Backing services, Build/Release/Run, Processes, Port binding, Concurrency, Disposability, Dev/Prod parity, Logs, Admin processes",
+        "12-Factor apps are stateless, portable, and horizontally scalable"
+      ],
+      "answer": "The Twelve-Factor methodology defines principles for building maintainable, scalable, cloud-native services. Key factors: Config stored in environment variables (not code), Processes are stateless and share-nothing, Logs treated as event streams (stdout, not files), Dependencies explicitly declared (not system-installed), Dev/Prod parity maintained to reduce surprises. Together they produce apps that deploy to any cloud, scale horizontally by adding instances, and tolerate instance restarts without data loss. Non-compliance typically manifests as configuration hardcoded in code, local filesystem state, or coupling to a specific OS."
+    },
+    {
+      "question": "How would you invalidate distributed cache entries across multiple nodes when source data changes?",
+      "hints": [
+        "Strategies: TTL expiry, event-driven invalidation via pub/sub, cache-aside with versioned keys",
+        "Write-through and cache tags provide fine-grained control; stale-while-revalidate reduces latency spikes"
+      ],
+      "answer": "Time-based expiry (TTL) is the simplest strategy — stale data is eventually evicted — but allows inconsistency windows. Event-driven invalidation publishes a cache invalidation event when the DB record changes; cache nodes subscribe and delete or update their entries immediately. Versioned cache keys (embed a version number or hash in the key) make invalidation a cache miss — update the version to effectively invalidate without explicit deletion. Cache tags (Varnish, Fastly) group related cache entries under a tag and purge all by tag on update. Choose based on acceptable staleness, write frequency, and infrastructure complexity."
+    },
+    {
+      "question": "How would you rebuild CQRS read-model projections when the schema changes or bugs are found?",
+      "hints": [
+        "Replay all events from the event store into a new projection, built in parallel while the old one serves traffic",
+        "Blue-green projections: rebuild new projection, validate, then swap; use event version headers to handle schema evolution"
+      ],
+      "answer": "Rebuild by replaying the entire event log into a new, empty read-model table (or index). Run the rebuild in parallel: the old projection continues serving reads while the new one catches up to the current event position. Once caught up (lag approaches zero), perform a brief cutover — swap the read API to point to the new projection. This is a blue-green projection swap with near-zero downtime. Handle event schema evolution by versioning event types and writing upcasters that transform old event formats into the latest schema before projecting. Snapshot the event position to enable incremental replays after the initial build."
+    },
+    {
+      "question": "What are vector clocks? How do they help resolve conflicts in distributed systems?",
+      "hints": [
+        "Vector clock: per-node counter vector tracking causal relationships between events",
+        "Concurrent updates (neither happened-before the other) require application-level conflict resolution"
+      ],
+      "answer": "A vector clock is a list of counters, one per node, attached to each message or data version. When a node performs a write it increments its own counter. When it receives a message it takes the element-wise maximum of both clocks. Comparing two versions: if one vector clock is component-wise ≤ the other, one causally precedes the other (safe to discard the older). If neither dominates, the updates are concurrent (no causal relationship) and require application-level conflict resolution (last-write-wins, merge, or user prompt). Used in DynamoDB, Riak, and CRDTs."
+    },
+    {
+      "question": "What is choreography vs orchestration in microservice workflows? When would you choose each?",
+      "hints": [
+        "Choreography: services react to events independently; Orchestration: a central coordinator directs each step",
+        "Choreography scales better but is harder to trace; orchestration is easier to reason about but adds a coordinator dependency"
+      ],
+      "answer": "Choreography uses events: each service does its work and publishes an event; downstream services subscribe and react independently. No central coordinator — services are loosely coupled and the system scales well. Harder to understand the overall flow and debug failures across multiple services. Orchestration uses a central saga orchestrator (or workflow engine like Temporal) that explicitly calls each service in sequence and handles failures and compensations in one place — the flow is explicit and easy to trace. Choose choreography for loosely coupled bounded contexts; orchestration when the workflow is complex, stateful, or requires explicit failure compensation."
+    },
+    {
+      "question": "What are the main API versioning strategies? Discuss URI versioning, header versioning, and content negotiation versioning.",
+      "hints": [
+        "URI versioning: /v1/users — simple and visible; Header versioning: custom header or Accept header",
+        "No single best approach; URI versioning is most common for public APIs"
+      ],
+      "answer": "URI versioning (/v1/resource) embeds the version in the URL — explicit, easy to test in a browser, simple to route, but pollutes the URL space. Request Header versioning (X-API-Version: 1) keeps URLs clean but is less discoverable and harder to test without tooling. Content negotiation (Accept: application/vnd.myapi.v2+json) follows HTTP semantics but is verbose and rarely used. GraphQL APIs version via schema evolution (adding fields, deprecating old ones) without explicit versioning. For public APIs, URI versioning is the pragmatic default; maintain at least two versions simultaneously to give consumers migration time."
+    },
+    {
+      "question": "How would you design a distributed job scheduler that runs millions of jobs reliably and without double-execution?",
+      "hints": [
+        "Lease-based locking: worker acquires a lease on a job row with a timeout; heartbeat extends the lease",
+        "Use a dead letter mechanism for jobs that exhaust retries; partition jobs for parallel processing"
+      ],
+      "answer": "Store jobs in a database with status (pending, running, done, failed) and a lease expiry timestamp. Workers claim jobs atomically (UPDATE SET status='running', lease_expires=now()+30s WHERE status='pending' AND lease_expires < now() RETURNING *) — only one worker gets each row. The worker heartbeats to extend the lease; if it crashes the lease expires and another worker re-claims the job. Partition jobs by tenant or type for parallel processing. Maintain an attempt counter and move jobs exceeding max retries to a dead letter table. For time-based triggers, store cron expressions and compute next_run_at after each execution."
+    },
+    {
+      "question": "What are LSM trees and B-trees? How do storage engines choose between them?",
+      "hints": [
+        "B-tree: balanced, in-place updates, good for reads and mixed workloads (PostgreSQL, MySQL InnoDB)",
+        "LSM tree: write-optimised, append-only SSTables with background compaction (RocksDB, Cassandra, LevelDB)"
+      ],
+      "answer": "B-trees maintain a balanced tree of pages with in-place updates — reads are fast (O(log n)), writes require random I/O to update pages. Ideal for OLTP workloads with mixed reads and writes (PostgreSQL, MySQL InnoDB). LSM trees (Log-Structured Merge-trees) write all data sequentially to an in-memory memtable flushed to immutable SSTables on disk; background compaction merges SSTables. Writes are fast (sequential I/O); reads may check multiple SSTables (mitigated by Bloom filters and indexes). Ideal for write-heavy workloads (time series, event logs, key-value stores: RocksDB, Cassandra, ClickHouse)."
+    },
+    {
+      "question": "What is connection draining and why is it necessary during rolling deployments?",
+      "hints": [
+        "Connection draining allows in-flight requests to complete before an instance is removed from the load balancer",
+        "Without draining, active requests are terminated mid-flight, causing 5xx errors to clients"
+      ],
+      "answer": "Connection draining (also called graceful shutdown or deregistration delay) is the process where a load balancer stops sending new requests to an instance being taken down while allowing existing in-flight requests to complete within a configurable timeout (typically 15-60 seconds). Without it, terminating an instance mid-request causes 5xx errors and broken file uploads or streaming responses. Kubernetes implements this via terminationGracePeriodSeconds and the preStop lifecycle hook; AWS ALB has a deregistration delay setting. Pair with health checks that immediately return unhealthy on SIGTERM."
+    },
+    {
+      "question": "What is a canary deployment? How does it differ from blue-green and rolling deployments?",
+      "hints": [
+        "Canary: route a small % of traffic to the new version while the majority stays on the old",
+        "Blue-green: all-at-once traffic switch; Rolling: incrementally replace instances one by one"
+      ],
+      "answer": "Canary deployment routes a small percentage (1-5%) of live traffic to the new version, monitoring error rates and latency before widening the rollout. If metrics degrade, route 100% back to the stable version instantly. Blue-green switches 100% of traffic at once — fast but all users are immediately affected by any bug. Rolling deployment replaces instances one by one (or in small batches); both versions run simultaneously and the fraction of users on each version shifts gradually with no explicit traffic splitting. Canary is best for risk mitigation; blue-green for instant full rollback capability; rolling for resource efficiency."
+    },
+    {
+      "question": "What is the data mesh architecture? How does it differ from a centralised data lake?",
+      "hints": [
+        "Data mesh: domain teams own and publish their own data as products; federated governance",
+        "Data lake/warehouse: centralised team ingests and owns all data — bottleneck at scale"
+      ],
+      "answer": "A centralised data lake funnels all data through a single platform team that owns ingestion, quality, and serving — a bottleneck as the organisation scales. Data mesh decentralises ownership: each domain team treats its data as a product with a defined schema, SLAs, and discoverability, publishing it via a standardised interface (e.g. S3 buckets, Kafka topics, APIs). A self-serve data platform provides common infrastructure. Federated computational governance enforces interoperability standards (common schemas, security policies) without re-centralising control. Data mesh scales the data organisation by distributing responsibility alongside domain teams."
+    },
+    {
+      "question": "What is the actor model? How does it enable highly concurrent and fault-tolerant systems?",
+      "hints": [
+        "Actors are isolated units of computation that communicate only via asynchronous message passing",
+        "Erlang/OTP, Akka: supervisors restart failed actors — fault isolation prevents cascading failures"
+      ],
+      "answer": "The actor model treats actors as the fundamental units of computation — each actor has private state, a mailbox, and processes one message at a time (no shared mutable state, no locks). Actors communicate only via asynchronous messages. This eliminates traditional concurrency bugs (data races, deadlocks). Supervision trees (Erlang/OTP, Akka) allow supervisors to restart failed actors without affecting the rest of the system — fault isolation is structural. The model scales across cores and machines naturally since actors are location-transparent. Suitable for highly concurrent systems: telephony, games, real-time systems."
+    },
+    {
+      "question": "How would you design a leaderboard system for 10 million concurrent users?",
+      "hints": [
+        "Use Redis sorted sets (ZADD/ZRANK): O(log n) score update and rank query",
+        "Partition global leaderboard into time windows (daily, weekly) to bound set size; use approximate rank for global scale"
+      ],
+      "answer": "Use Redis sorted sets: ZADD leaderboard <score> <userId> updates or inserts in O(log n); ZRANK retrieves exact rank in O(log n); ZREVRANGE fetches top-N in O(log n + k). For 10M users, a single sorted set is feasible in Redis (fits in memory at ~hundreds of MB). For global approximate rank at extreme scale, use a count-min sketch or a hierarchical bucket approach. Time-window leaderboards (daily, weekly) are separate sorted sets with TTLs to bound memory. Replicate read traffic across Redis read replicas. For friend leaderboards, maintain per-user friend score lists or query on-demand with caching."
+    },
+    {
+      "question": "What is polyglot persistence and when is it appropriate?",
+      "hints": [
+        "Polyglot persistence: use the best-fit database for each service's data access patterns",
+        "Risk: operational complexity; reward: optimised performance and developer ergonomics per use case"
+      ],
+      "answer": "Polyglot persistence means intentionally using different database technologies for different services or use cases within the same system, choosing each for its strengths. Examples: PostgreSQL for transactional user data, Redis for session storage and caching, Elasticsearch for full-text search, Cassandra for time-series event data, Neo4j for graph relationships. Each microservice owns its data store, aligning the storage model to the access pattern. The trade-off is operational complexity: more technologies to operate, monitor, and back up. Appropriate at scale where performance gains justify operational cost; avoid premature adoption in early-stage systems."
+    },
+    {
+      "question": "How do you debug a sudden performance degradation in a production system?",
+      "hints": [
+        "Start with metrics: is it CPU, memory, I/O, or network? Check p99 latency and error rates",
+        "Use distributed traces to find the slow span; check slow query logs, connection pool exhaustion, GC pauses"
+      ],
+      "answer": "Start with the four golden signals: latency, traffic, error rate, saturation. Identify which service's latency degraded and correlate with deployment events, traffic spikes, or infrastructure changes. Use distributed traces to find the slowest span — is it a DB query, an external call, or application logic? For database issues: inspect slow query logs, check index usage with EXPLAIN ANALYZE, look for lock contention (pg_locks, SHOW PROCESSLIST). Check for connection pool exhaustion (waiting connections), GC pause logs, memory pressure causing swapping, and thread pool saturation. Reproduce in a lower environment once the root cause is hypothesised, then fix, deploy, and validate with metrics."
+    },
+    {
+      "question": "What is the Two Generals Problem and what does it demonstrate about distributed systems?",
+      "hints": [
+        "Two armies must coordinate an attack but messengers may be captured — no guaranteed consensus over unreliable channel",
+        "Proves it is impossible to achieve guaranteed consensus over a network that can lose messages"
+      ],
+      "answer": "The Two Generals Problem describes two armies needing to coordinate an attack simultaneously: each general sends a messenger through enemy territory (the messenger may be captured), and each general needs acknowledgement before committing. The receiving general's acknowledgement may also be lost — creating an infinite regress. It proves that it is impossible to achieve guaranteed agreement over a lossy communication channel in finite rounds. In distributed systems, this means you can never be 100% certain a remote operation succeeded — you can only minimise uncertainty (timeouts, retries, idempotency, and acknowledgements at-least-once). Accept and design around this fundamental impossibility."
+    },
+    {
+      "question": "How would you implement a search-as-you-type autocomplete feature that scales to millions of documents?",
+      "hints": [
+        "Use Elasticsearch completion suggester or prefix queries on an inverted index",
+        "Cache top-N suggestions in Redis with a prefix trie; pre-warm cache for popular prefixes"
+      ],
+      "answer": "For moderate scale, use Elasticsearch's completion suggester (stores FST in memory for O(prefix_length) lookup) or a prefix query on an edge n-gram tokenised field. For higher scale and lower latency, maintain a Redis sorted set per prefix character sequence — on each keypress query the sorted set for the typed prefix and return top-N by score. Populate the Redis trie asynchronously from search logs and document metadata. Pre-warm entries for the most popular prefixes at startup. Add a debounce (150-300ms) on the client side to avoid firing a request on every keystroke."
+    },
+    {
+      "question": "What is backpressure in streaming systems? How do you implement it?",
+      "hints": [
+        "Backpressure prevents a fast producer from overwhelming a slow consumer by signalling when to slow down",
+        "Implemented via bounded queues, reactive streams (Reactive Streams spec), or flow control in gRPC/HTTP2"
+      ],
+      "answer": "Backpressure is a flow control mechanism where a slow consumer signals upstream producers to slow down rather than accumulating an unbounded buffer and eventually running out of memory or losing data. Implementations: bounded blocking queues where producers block when full; the Reactive Streams specification (RxJava, Project Reactor) where consumers explicitly request N items via a Subscription; gRPC and HTTP/2 native flow control windows that pause the sender when the receiver's window is exhausted; and Kafka's pull model where consumers naturally pace themselves. Design systems to propagate backpressure end-to-end to prevent buffer overruns."
+    },
+    {
+      "question": "What are CRDTs (Conflict-free Replicated Data Types)? Give a practical example.",
+      "hints": [
+        "CRDTs are data structures that can be merged from multiple replicas without conflicts, always converging to the same state",
+        "Examples: G-Counter (grow-only counter), LWW-Register (last-write-wins), OR-Set (observed-remove set)"
+      ],
+      "answer": "CRDTs are data structures with mathematically defined merge functions guaranteeing that concurrent updates from any number of replicas always converge to the same result without coordination or conflict resolution. A G-Counter (grow-only counter) maintains a per-replica counter vector; the merged value is the element-wise maximum. An OR-Set (observed-remove set) tracks add and remove operations with unique tags so concurrent add and remove of the same element resolves deterministically. CRDTs are used in collaborative editing (Figma, ProseMirror), distributed session state, and eventually consistent NoSQL databases (Riak, Redis CRDT module) where coordination-free convergence is required."
+    },
+    {
+      "question": "How do you manage secrets in a production Kubernetes environment?",
+      "hints": [
+        "Kubernetes Secrets are base64-encoded (not encrypted at rest by default) — enable encryption-at-rest or use an external vault",
+        "Best practice: HashiCorp Vault or AWS Secrets Manager with a sidecar injector; never store secrets in container images or ConfigMaps"
+      ],
+      "answer": "Kubernetes Secrets are base64-encoded and stored in etcd. Enable etcd encryption-at-rest (EncryptionConfiguration) or use an external secrets manager. Best practice: use HashiCorp Vault or AWS Secrets Manager with the Vault Agent sidecar injector or External Secrets Operator — secrets are fetched at pod startup and injected as environment variables or mounted files, and rotation is propagated without redeployment. Never embed secrets in Docker images, ConfigMaps, or source code. Use RBAC to restrict which service accounts can read which Secrets. Rotate secrets on suspected compromise without downtime using versioned secret paths."
+    },
+    {
+      "question": "What is a time-series database? When should you use one instead of a relational database?",
+      "hints": [
+        "Time-series DBs (InfluxDB, TimescaleDB, Prometheus) optimise for high-frequency appends of timestamped data",
+        "Relational DBs degrade on billions of time-ordered rows due to index fragmentation and table bloat"
+      ],
+      "answer": "A time-series database is optimised for storing, querying, and aggregating data points indexed by time — metrics, sensor readings, financial ticks, and logs. Optimisations include columnar storage, automatic partitioning by time (chunk-based storage), compression of repeated timestamps and values, and time-range-aware query engines. Relational databases struggle at billions of rows of time-ordered data due to B-tree index fragmentation and costly range scans without time partitioning. Use InfluxDB or TimescaleDB (PostgreSQL extension) for metrics and IoT data, Prometheus for infrastructure metrics with alerting, and ClickHouse for analytical time-series at extreme scale."
+    },
+    {
+      "question": "How would you design an audit log system that cannot be tampered with?",
+      "hints": [
+        "Append-only immutable log; use hash-chaining (each entry includes a hash of the previous) to detect tampering",
+        "Write to a separate append-only datastore; replicate to an off-system sink (S3, WORM storage)"
+      ],
+      "answer": "Write audit events to an append-only table or log — never allow UPDATE or DELETE on audit rows. Use hash-chaining: each record includes the hash of the previous record's content and ID, forming a chain where any modification invalidates all subsequent hashes. Store the chain tail hash in a separate, access-controlled location for periodic verification. Replicate the audit log asynchronously to an immutable off-system sink (AWS S3 Object Lock, WORM storage, or a separate append-only database) so even a compromised primary database cannot erase history. Sign critical entries with an asymmetric key to prove authenticity."
+    },
+    {
+      "question": "What is a distributed lock and when should you use one? What are the risks?",
+      "hints": [
+        "Distributed lock (Redlock, Zookeeper) ensures only one node executes a critical section across a cluster",
+        "Risk: clock drift, GC pauses, or network partitions can cause two nodes to hold the lock simultaneously"
+      ],
+      "answer": "A distributed lock ensures that only one node in a cluster executes a critical section at a time — used for leader election, preventing duplicate job execution, and coordinating access to shared external resources. Redis Redlock acquires locks on multiple nodes with a TTL; a lock is considered held if the majority respond. Zookeeper ephemeral nodes provide stronger consistency guarantees. Risks: a long GC pause or network partition can cause a node to believe it still holds the lock after TTL expiry, while another node has already acquired it — use fencing tokens (monotonically increasing lease numbers) to detect and reject stale lock holders at the resource level."
+    },
+    {
+      "question": "What is multiversion concurrency control (MVCC) and how does it enable non-blocking reads?",
+      "hints": [
+        "MVCC stores multiple versions of each row; readers see a consistent snapshot without blocking writers",
+        "Used in PostgreSQL and MySQL InnoDB; old versions are cleaned up by a vacuum/purge process"
+      ],
+      "answer": "MVCC (Multiversion Concurrency Control) maintains multiple versions of each row, tagged with transaction IDs. A reader sees a consistent snapshot of the database as of its transaction start time — it reads old versions of rows that have been updated by concurrent transactions. Writers create new row versions rather than overwriting in place. This means readers never block writers and writers never block readers, greatly improving concurrency compared to lock-based reads. In PostgreSQL, a background VACUUM process reclaims old row versions (dead tuples) that are no longer visible to any transaction. MVCC is fundamental to Snapshot Isolation and Serializable Snapshot Isolation."
+    },
+    {
+      "question": "How do you implement zero-downtime migrations for a high-traffic table with 500 million rows?",
+      "hints": [
+        "Use pt-online-schema-change or pg_repack to copy the table in the background with triggers syncing writes",
+        "Never run ALTER TABLE on a large live table — it acquires an exclusive lock and blocks all reads and writes"
+      ],
+      "answer": "A direct ALTER TABLE on a 500M row table acquires an exclusive lock for the duration — minutes or hours of downtime. Instead: use pt-online-schema-change (Percona, MySQL) or pg_repack / pglogical (PostgreSQL) which create a shadow copy of the table, apply the schema change to the copy, install triggers to sync ongoing writes from the original to the copy, and perform a fast table rename once the copy is caught up — total lock time is milliseconds. Apply the expand-contract migration pattern: add nullable columns first, backfill in batches with a controlled rate to avoid replication lag, then add NOT NULL constraints after backfill completes."
+    },
+    {
+      "question": "What is the Sidecar pattern in Kubernetes? Give three practical applications.",
+      "hints": [
+        "A sidecar container runs alongside the main application container in the same pod, sharing its network and storage",
+        "Applications: service mesh proxy (Envoy), log shipper (Fluentd), secrets injector (Vault Agent)"
+      ],
+      "answer": "The Sidecar pattern deploys an auxiliary container in the same Kubernetes pod as the main application container — they share the same network namespace (localhost communication) and can share volumes. The sidecar handles cross-cutting concerns without modifying application code. Three applications: (1) Service mesh proxy (Envoy/Istio) intercepts all network traffic for mTLS, retries, and tracing. (2) Log shipper (Fluentd, Filebeat) tails the application's log files from a shared volume and forwards to a central log aggregation system. (3) Secrets injector (Vault Agent) fetches secrets from HashiCorp Vault and writes them to a shared in-memory volume accessible to the app."
+    },
+    {
+      "question": "What is a compensating transaction and how does it differ from a rollback?",
+      "hints": [
+        "Rollback undoes changes within a single ACID transaction before commit; compensating transactions undo already-committed steps",
+        "Used in sagas: when step 3 fails, compensating transactions reverse steps 2 and 1 that already committed"
+      ],
+      "answer": "A database rollback reverts uncommitted changes within the current transaction — it is atomic and guaranteed by the database engine. A compensating transaction is an explicit business operation that semantically undoes a previously committed transaction — used in sagas and long-running business processes where ACID rollback is no longer possible (the transaction has already committed). For example, if an order saga's payment step fails after the inventory step committed, a compensating transaction re-adds the reserved stock. Compensating transactions may not be perfectly reversible (e.g. a sent email cannot be unsent) and must be designed as idempotent operations."
+    },
+    {
+      "question": "How would you design a feature flag system for a large engineering organisation?",
+      "hints": [
+        "Flag state stored centrally (LaunchDarkly, Unleash); SDK evaluates flags client-side with a local cache of rules",
+        "Support targeting rules: percentage rollout, user segment, environment; flags must have owners and sunset dates"
+      ],
+      "answer": "A production feature flag system stores flag definitions (name, rules, targeting criteria) in a central service (self-hosted Unleash, LaunchDarkly, or a custom Redis-backed store). Each application instance runs an SDK that fetches the flag ruleset at startup and caches it locally, refreshing on a polling interval or via a server-sent events stream — flag evaluation is local (no network call per request). Support targeting rules: percentage-based rollout (hash userId % 100), user segment targeting, environment-specific values, and kill switches. Enforce flag hygiene: every flag must have an owner, a creation date, and a planned removal date; stale flags become technical debt and should be deleted after the rollout completes."
     }
   ]
 }

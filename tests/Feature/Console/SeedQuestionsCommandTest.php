@@ -116,11 +116,11 @@ class SeedQuestionsCommandTest extends TestCase
         $this->assertGreaterThan(0, $questionsWithHints);
     }
 
-    public function test_total_question_count_is_108(): void
+    public function test_total_question_count_is_600(): void
     {
         $this->artisan('bot:seed-questions')->assertSuccessful();
 
-        // 4 categories × 3 levels × 9 questions = 108 total
-        $this->assertSame(108, Question::count());
+        // 4 categories × 3 levels × 50 questions = 600 total
+        $this->assertSame(600, Question::count());
     }
 }

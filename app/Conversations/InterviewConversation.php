@@ -35,12 +35,15 @@ use SergiX44\Nutgram\Telegram\Types\Keyboard\InlineKeyboardMarkup;
 class InterviewConversation extends Conversation
 {
     // Persisted between conversation steps (serialized by Nutgram)
-    protected ?string $category       = null;
-    protected ?string $level          = null;
-    protected ?int    $questionId     = null;
-    protected ?string $questionText   = null;
-    protected ?string $questionAnswer = null;
-    protected ?int    $userId         = null;  // internal DB user id
+    protected ?string $category          = null;
+    protected ?string $level             = null;
+    protected ?int    $questionId        = null;
+    protected ?string $questionText      = null;
+    protected ?string $questionAnswer    = null;
+    protected ?int    $userId            = null;  // internal DB user id
+    protected ?int    $questionMessageId = null;  // Telegram message_id of the question bubble
+    protected ?string $questionHints     = null;  // JSON-encoded hints array; null = no hints
+    protected ?bool   $tipsVisible       = null;  // null = no hints, false = hidden, true = shown
 
     // -------------------------------------------------------------------------
     // Step 1 — Choose specialization
@@ -143,6 +146,27 @@ class InterviewConversation extends Conversation
         }
 
         $data = $bot->callbackQuery()?->data ?? '';
+
+        if ($data === 'q_show_tips' || $data === 'q_hide_tips') {
+            $bot->answerCallbackQuery();
+            $this->tipsVisible = ($data === 'q_show_tips');
+
+            try {
+                $bot->editMessageText(
+                    text:         $this->buildQuestionText(withTips: $this->tipsVisible),
+                    chat_id:      $bot->chatId(),
+                    message_id:   $this->questionMessageId,
+                    parse_mode:   'Markdown',
+                    reply_markup: $this->buildQuestionKeyboard(),
+                );
+            } catch (\Throwable $e) {
+                logger()->error('handleQuestionChoice editMessageText: ' . $e->getMessage());
+            }
+
+            $this->next('handleQuestionChoice');
+            return;
+        }
+
         $bot->answerCallbackQuery();
 
         if ($data === 'q_self_answer') {
@@ -288,11 +312,14 @@ class InterviewConversation extends Conversation
         }
 
         if ($data === 'action_change') {
-            $this->category       = null;
-            $this->level          = null;
-            $this->questionId     = null;
-            $this->questionText   = null;
-            $this->questionAnswer = null;
+            $this->category          = null;
+            $this->level             = null;
+            $this->questionId        = null;
+            $this->questionText      = null;
+            $this->questionAnswer    = null;
+            $this->questionMessageId = null;
+            $this->questionHints     = null;
+            $this->tipsVisible       = null;
 
             $bot->sendMessage(
                 text: "🎯 *Choose your specialization:*",
@@ -335,28 +362,52 @@ class InterviewConversation extends Conversation
         $this->questionText   = $question['question_text'];
         $this->questionAnswer = $question['answer'] ?? '';
 
-        $levelLabel    = ucfirst($this->level ?? '');
-        $categoryLabel = strtoupper($this->category ?? '');
-
-        $text = "💬 *[{$categoryLabel} — {$levelLabel}]*\n\n{$this->questionText}";
-
         $hints = $question['hints'] ?? [];
-        if (!empty($hints)) {
-            $hintList = implode("\n", array_map(fn($h) => "• {$h}", $hints));
-            $text .= "\n\n💡 *Hints:*\n{$hintList}";
-        }
+        $this->questionHints = !empty($hints) ? json_encode($hints) : null;
+        $this->tipsVisible   = $this->questionHints !== null ? false : null;
 
-        $bot->sendMessage(
-            text: $text,
-            parse_mode: 'Markdown',
-            reply_markup: InlineKeyboardMarkup::make()
-                ->addRow(
-                    InlineKeyboardButton::make('✍️ Answer Yourself', callback_data: 'q_self_answer'),
-                    InlineKeyboardButton::make('👁 Show Answer',      callback_data: 'q_show_answer'),
-                ),
+        $message = $bot->sendMessage(
+            text:         $this->buildQuestionText(withTips: false),
+            parse_mode:   'Markdown',
+            reply_markup: $this->buildQuestionKeyboard(),
         );
 
+        $this->questionMessageId = $message?->message_id;
+
         $this->next('handleQuestionChoice');
+    }
+
+    private function buildQuestionText(bool $withTips = false): string
+    {
+        $levelLabel    = ucfirst($this->level ?? '');
+        $categoryLabel = strtoupper($this->category ?? '');
+        $text          = "💬 *[{$categoryLabel} — {$levelLabel}]*\n\n{$this->questionText}";
+
+        if ($withTips && $this->questionHints !== null) {
+            $hints    = json_decode($this->questionHints, true) ?? [];
+            $hintList = implode("\n", array_map(fn(string $h) => "• {$h}", $hints));
+            $text    .= "\n\n💡 *Tips:*\n{$hintList}";
+        }
+
+        return $text;
+    }
+
+    private function buildQuestionKeyboard(): InlineKeyboardMarkup
+    {
+        $keyboard = InlineKeyboardMarkup::make();
+
+        if ($this->tipsVisible !== null) {
+            $label        = $this->tipsVisible ? '🙈 Hide Tips' : '💡 Show Tips';
+            $callbackData = $this->tipsVisible ? 'q_hide_tips'  : 'q_show_tips';
+            $keyboard->addRow(InlineKeyboardButton::make($label, callback_data: $callbackData));
+        }
+
+        $keyboard->addRow(
+            InlineKeyboardButton::make('✍️ Answer Yourself', callback_data: 'q_self_answer'),
+            InlineKeyboardButton::make('👁 Show Answer',      callback_data: 'q_show_answer'),
+        );
+
+        return $keyboard;
     }
 
     private function resolveUserId(Nutgram $bot): void

@@ -113,3 +113,25 @@ questions/
   qa.json
   ba.json
 ```
+---
+
+## Testing
+
+### Running Tests
+
+```bash
+# All tests
+composer test          # clears config cache first, then php artisan test
+php artisan test
+
+# By suite
+php artisan test --testsuite=Unit
+php artisan test --testsuite=Feature
+
+# Single file or directory
+php artisan test tests/Feature/Services/UserServiceTest.php
+php artisan test tests/Feature/Console/
+
+# With coverage (requires Xdebug or PCOV)
+php artisan test --coverage
+```
